@@ -6,17 +6,17 @@ const initialState = {
  const postReducer = (state = initialState, actions: any) => {
   let {payload} = actions;
   switch (actions.type) {
-    case types.CREATE_POST:
+    case types.GET_ALL_POSST:
       return {
         ...state,
       };
 
-    case types.CREATE_POST_SUCCESS:
+    case types.GET_ALL_POSST_SUCCESS:
       return {
         ...state,
-        allCourse: payload,
+        post: payload,
       };
-    case types.CREATE_POST_FAILURE:
+    case types.GET_ALL_POSST_FAILURE:
       return {
         ...state,
       };

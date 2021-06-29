@@ -92,7 +92,7 @@ export const MyHome = () => {
 const StackApp = createStackNavigator();
 export const MyApp = () => {
   return (
-    <StackApp.Navigator initialRouteName= 'MyScreen'>
+    <StackApp.Navigator initialRouteName= 'MyHome'>
       <StackApp.Screen
         name="MyScreen"
         options={{ headerShown: false }}

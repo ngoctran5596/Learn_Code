@@ -1,10 +1,19 @@
-import {combineReducers} from 'redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { combineReducers } from 'redux';
+import { persistReducer } from 'redux-persist';
 import CoursesReducer from './courses/reducerCourses';
-import {UserReducer} from './auth/reducer';
 import PostReducer from './post/reducerPost';
-import {from} from 'rxjs';
 
+// const rootReducer = combineReducers({
+//   booksReducer: persistReducer(persistConfig, booksReducer)
+// });
+
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+  whitelist: ['bookmarks']
+};
 export const rootReducer=  combineReducers({
-  CoursesReducer,
-  UserReducer,PostReducer
+  coursesReducer:persistReducer(persistConfig, CoursesReducer),
+  postsReducer:persistReducer(persistConfig, PostReducer),
 })

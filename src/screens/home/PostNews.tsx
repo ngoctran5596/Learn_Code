@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { FormButton, HeaderNav } from '@components';
+// import Camera from './Camera.logic';
 import { HomeLogic } from './Home.Logic';
 import { BACK, CHAT, CHATLOVE, Colors, MENUUSER, SETTING } from '@assets';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -54,7 +55,10 @@ export const PostNewsScreen = (props: any) => {
                         value={conten}
                     />
                 </View>
-                <View style={styles.userBtnWrapper}>
+                <View>
+                    {/* <Camera/> */}
+                </View>
+                {/* <View style={styles.userBtnWrapper}>
                     <TouchableOpacity style={styles.userBtn} onPress={() => { distPatchPost(posts, conten) }}>
                         <Image
                             style={{ width: wp(5), height: wp(5), marginHorizontal: wp(1) }}
@@ -63,7 +67,7 @@ export const PostNewsScreen = (props: any) => {
                         <Text style={styles.userBtnTxt}>Đăng Post</Text>
                     </TouchableOpacity>
                 </View>
-
+ */}
 
             </ScrollView>
         </SafeAreaView>

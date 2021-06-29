@@ -3,21 +3,22 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../redux/auth/action';
 import { coursesActions } from '../../redux/courses/actionCourses';
+import { postActions } from '../../redux/post/actionPost';
 
 
 export const HomeLogic = (props: any) => {
     const dispatch = useDispatch();
     const [dataLocal, setDataLocal] = React.useState()
-  const  Logout = async () => {
+    const Logout = async () => {
         try {
-          await AsyncStorage.removeItem('USER')
-          await AsyncStorage.removeItem('ACCESS-Token')
-        } catch(e) {
-          // remove error
+            await AsyncStorage.removeItem('USER')
+            await AsyncStorage.removeItem('ACCESS-Token')
+        } catch (e) {
+            // remove error
         }
-      
+
         props.navigation.navigate('Login')
-      }
+    }
     const getData = async () => {
         try {
             const value = await AsyncStorage.getItem('USER')
@@ -31,10 +32,8 @@ export const HomeLogic = (props: any) => {
         }
     }
 
-    const distpatchCourses = () => {
-        const action = coursesActions.getAllCourses('');
-        dispatch(action);
-    };
+    const distpatchCourses = () => dispatch(coursesActions.getAllCourses(''));
+
 
     const onPress = () => {
         props.navigation.navigate('CourseDetail')
@@ -42,24 +41,28 @@ export const HomeLogic = (props: any) => {
     const onPressProfile = () => {
         props.navigation.navigate('Profile')
     };
-    const onPressPostNews= () => {
+    const onPressPostNews = () => {
         props.navigation.navigate('PostNews')
     };
-    const dispatchHome = () => {
-        useEffect(() => {
-            getData();
-            distpatchCourses();
-        }, []);
-    }
-
 
     const data = useSelector(
-        (state: any) => state.CoursesReducer.allCourse.payload,
+        (state: any) => state.coursesReducer.allCourse.payload,
+    );
+    const dataTest = useSelector(
+        (state: any) => state.postsReducer.post.payload
     );
 
-    console.log('dataLocal,dataLocal', dataLocal);
+
+    const fetchBooks = () => dispatch(postActions.getAllPost(''));
+
+    useEffect(() => {
+        fetchBooks();
+        distpatchCourses();
+    }, []);
+
+    console.log('dataLocal,dataLocal', dataTest,data);
     return {
-        dataLocal, distpatchCourses, data, onPress, onPressProfile,dispatchHome,Logout,onPressPostNews
+        dataLocal, distpatchCourses, data, onPress, onPressProfile, Logout, onPressPostNews,dataTest
     }
 }
 

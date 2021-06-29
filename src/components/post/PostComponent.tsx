@@ -3,17 +3,22 @@ import React from 'react'
 import { ScrollView, Image, StyleSheet, Text, View, Platform } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 
-export const PostComponent = (props: any) => {
-    const { title, image, imageLike, description, numberlike } = props;
 
+export const PostComponent = (props: any) => {
+    const { title, image, imageLike, classa, description, numberlike, numberComment, content } = props;
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={{ flexDirection: 'row' }}>
                     <Image source={{ uri: image }} style={styles.avatar} />
-                    <Text style={styles.text}>{title} {'>'} Tên Lớp </Text>
-                    <Text>{description}</Text>
+                    <Text style={styles.text}>{title} {'>'} {classa} </Text>
+
                 </View>
+                <View>
+                    {/* <Text>{description.length > 50 ? description.slice(0,20 ) + '...' : description}</Text> */}
+                    <Text numberOfLines={1}>{description}</Text>
+                </View>
+
                 <View style={{ width: '100%', height: '50%', marginVertical: hp(2) }}>
                     <Image source={{ uri: image }} style={styles.img} />
                 </View>
@@ -27,11 +32,12 @@ export const PostComponent = (props: any) => {
                     </View>
 
                     <View style={styles.like}>
-                        <Text style={{marginHorizontal:wp(1)}}>{numberlike ? numberlike : 0} comment</Text>
+                        <Text style={{ marginHorizontal: wp(1) }}>{numberComment ? numberComment : 0} comment</Text>
                         <Text>{numberlike ? numberlike : 0} share</Text>
                     </View>
                 </View>
-                <View style={{ flexDirection: 'row',
+                <View style={{
+                    flexDirection: 'row',
                     justifyContent: 'space-between',
                 }}>
                     <View style={styles.like}>
@@ -41,12 +47,23 @@ export const PostComponent = (props: any) => {
 
                     <View style={styles.like}>
                         <Image source={COMMENT} style={styles.icon} />
-                        <Text>comment</Text>
+                        <Text>{numberComment ? numberComment : ''}comment</Text>
                     </View>
                     <View style={styles.like}>
                         <Image source={SHARE} style={styles.icon} />
                         <Text>share</Text>
                     </View>
+                </View>
+                <View style={{
+                    height:hp(10),
+                    flexDirection: 'column',
+                }}>
+                    {content?.map((item: any) => {
+                        return <View style={styles.like}>
+                            <Image source={imageLike} style={styles.icon} />
+                            <Text>{item.content}</Text>
+                        </View>
+                    })}
                 </View>
 
             </View>
@@ -57,13 +74,13 @@ export const PostComponent = (props: any) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        marginBottom: hp(1),
+        marginBottom: hp(2),
     },
     header: {
         width: wp(100),
-        padding: 10,
-        height: hp(40),
+        paddingVertical: hp(3),
+        paddingHorizontal: wp(2),
+        height: hp(60),
         flexDirection: 'column',
         justifyContent: 'center',
         backgroundColor: Colors.WHITE,

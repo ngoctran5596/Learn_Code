@@ -16,8 +16,7 @@ import { HomeLogic } from './Home.Logic';
 import { styles } from './style';
 
 export const Home = (props: any) => {
-    const { data, onPress, dataLocal, onPressProfile, dispatchHome, onPressPostNews }: any = HomeLogic(props);
-    dispatchHome();
+    const { data, onPress, dataLocal, dataTest, onPressProfile, onPressPostNews }: any = HomeLogic(props);
     return (
         <View>
             <View>
@@ -25,7 +24,7 @@ export const Home = (props: any) => {
                 <PostNews onPress={onPressPostNews} icon={dataLocal?.image} text='Bạn đang nghĩ gì ?' />
             </View>
 
-            {data ? (
+            {dataTest ? (
                 <VirtualizedView style={{ marginTop: hp(1) }} >
                     <Text style={styles.text}>Khóa học</Text>
                     <FlatList
@@ -46,20 +45,23 @@ export const Home = (props: any) => {
 
                     <FlatList
                         keyExtractor={(item: any, index: any) => index.toString()}
-                        data={data}
+                        data={dataTest}
                         renderItem={({ item }) => {
                             return (
                                 <PostComponent
-                                    title={item.name}
+                                    classa={item.typeClassId?.name}
+                                    description={item.description}
+                                    title={item.title}
                                     image={item.image}
-                                    imageLike={LIKE}
+                                    imageLike={LIKE} numberComment={item.comment.length}
+                                    content={item.comment}
                                 />
                             );
                         }}
                     />
                 </VirtualizedView>
             ) : (
-                <View style={{ width:widthPercentageToDP(100),height:hp(50), justifyContent: 'center', alignContent:'center',alignItems: 'center' }}>
+                <View style={{ width: widthPercentageToDP(100), height: hp(50), justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
                     <ActivityIndicator
                         size='large'
                         color="red"

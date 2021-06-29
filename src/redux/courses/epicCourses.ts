@@ -8,9 +8,9 @@ export const getAllCourses = ($action: any) => {
   return $action.pipe(
     ofType(types.GET_ALL_COURSES),
     mergeMap((act: any) => {
-      return config
+      return axios
         .get(
-            'courses'
+           'https://duan-3.glitch.me/api/courses'
         )
         .then((rs: any) => {
           const {data} = rs;
