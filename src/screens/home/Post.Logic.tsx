@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { postActions } from '../../redux/post/actionPost'
+import { postActions } from '@share-store'
 
 
 export const PostLogic = (props: any) => {

@@ -1,2 +1,3 @@
 export * from './Login'
-export * from './Register'
+export * from './Questions'
+export * from './Login.view'

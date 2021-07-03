@@ -1,12 +1,12 @@
-import {postActions, types} from './actionPost';
+import {postActions, typesPost} from './actionPost';
 import {ofType} from 'redux-observable';
 import {mergeMap} from 'rxjs/operators';
 import axios from 'axios';
-// import config from '../../api/config';
+import { $axios } from '@api';
 
 export const createPostEpic = ($action: any) => {
   return $action.pipe(
-    ofType(types.GET_ALL_POSST),
+    ofType(typesPost.GET_ALL_POSST),
     mergeMap((act: any) => {
       console.log('ACTION', act);
       const post = {
@@ -16,11 +16,10 @@ export const createPostEpic = ($action: any) => {
         Authorization: 'Bearer ' + act.payload.accessTokent,
         'My-Custom-Header': 'foobar',
       };
-      return axios
-        .post('https://duan-3.glitch.me/api/post', post, {headers})
+      return $axios.config
+        .post('post', post, {headers})
         .then((rs: any) => {
           const {data} = rs;
-          console.log('DATA', data);
           return postActions.getAllPostSuccess(data);
         })
         .catch((err: any) => {
@@ -32,10 +31,10 @@ export const createPostEpic = ($action: any) => {
 
 export const getAllPostEpic = ($action: any) => {
   return $action.pipe(
-    ofType(types.GET_ALL_POSST),
+    ofType(typesPost.GET_ALL_POSST),
     mergeMap((act: any) => {
-      return axios
-        .get('https://duan-3.glitch.me/api/newsfeed')
+      return $axios.config
+        .get('newsfeed')
         .then((rs: any) => {
           const {data} = rs;
           console.log('DATA', data);
@@ -47,3 +46,20 @@ export const getAllPostEpic = ($action: any) => {
     }),
   );
 };
+export const commentPostEpic = ($action: any) => {
+  return $action.pipe(
+    ofType(typesPost.COMMENT_POSST),
+    mergeMap((act: any) => {
+      return $axios.config
+        .post('newsfeed')
+        .then((rs: any) => {
+          const {data} = rs;
+          console.log('DATA', data);
+          return postActions.commentPostSuccess(data);
+        })
+        .catch((err: any) => {
+          return postActions.commentPostFailure(err);
+        });
+    }),
+  );
+}

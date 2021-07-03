@@ -1,18 +1,20 @@
-import {coursesActions, types} from './actionCourses';
+import {coursesActions, typesCoures} from './actionCourses';
 import {ofType} from 'redux-observable';
 import {mergeMap} from 'rxjs/operators';
 import axios from 'axios';
-import {config} from '../../api/config';
+import {$axios} from '@api';
 
 export const getAllCourses = ($action: any) => {
   return $action.pipe(
-    ofType(types.GET_ALL_COURSES),
+    ofType(typesCoures.GET_ALL_COURSES),
     mergeMap((act: any) => {
-      return axios
+      console.log('acttionnnnnnnnn',act)
+      return $axios.config
         .get(
-           'https://duan-3.glitch.me/api/courses'
+           'courses'
         )
         .then((rs: any) => {
+          console.log('rsrsrsrsrsrsrs',rs)
           const {data} = rs;
           return coursesActions.getAllCoursesSuccess(data);
         })

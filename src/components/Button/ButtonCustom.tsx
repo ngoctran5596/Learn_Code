@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     borderRadius: wp(10),
     alignItems: 'center',
     justifyContent: 'center',
+    marginVertical:hp(2),
   },
   text: {
     fontFamily: 'helvetica-neue-regular',

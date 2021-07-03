@@ -16,7 +16,7 @@ import { HomeLogic } from './Home.Logic';
 import { styles } from './style';
 
 export const Home = (props: any) => {
-    const { data, onPress, dataLocal, dataTest, onPressProfile, onPressPostNews }: any = HomeLogic(props);
+    const { data,onPress, dataLocal, dataTest, onPressProfile, onPressPostNews }: any = HomeLogic(props);
     return (
         <View>
             <View>
@@ -55,6 +55,7 @@ export const Home = (props: any) => {
                                     image={item.image}
                                     imageLike={LIKE} numberComment={item.comment.length}
                                     content={item.comment}
+
                                 />
                             );
                         }}

@@ -1,5 +1,7 @@
+// import { Font } from './../../../assets/fonts/index';
 import React from 'react';
 import {StyleSheet} from 'react-native';
+import {Colors, Font} from '@assets';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -8,31 +10,58 @@ import {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: wp(6),
     flexDirection: 'column',
-    alignItems: 'center',
+  },
+  image: {
+    flex: 1,
+    opacity: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
   text: {
+    color: 'white',
     fontWeight: 'bold',
-    fontSize:40 ,
-    padding: 10,
+    fontSize: 40,
     textAlign: 'center',
+    fontFamily: Font.helveticaneue_regular,
   },
   row: {
     flexDirection: 'row',
+    marginHorizontal: wp(2),
+    marginVertical: hp(1),
   },
   center: {
-    width: wp(50),
+    width: wp(48),
     justifyContent: 'center',
     alignItems: 'center',
     alignContent: 'center',
     padding: 20,
+    opacity: 0.8,
   },
   input: {
-    width: wp(90),
-    borderWidth: 0.5,
+    width: '100%',
+    borderBottomWidth: 0.5,
     marginVertical: 10,
-    marginHorizontal: 20,
     borderRadius: 8,
+  },
+  textQS: {
+    color: 'black',
+    paddingVertical: hp(2),
+    fontWeight: 'bold',
+    fontSize: 20,
+    textAlign: 'center',
+    fontFamily: Font.helveticaneue_regular,
+  },
+  card: {
+    marginHorizontal:wp(2),
+    padding: 10,
+    backgroundColor: Colors.WHITE,
+    borderRadius: wp(8),
+    elevation: 10,
+    shadowColor: '#000',
+    shadowOffset: {width: 10, height: 10},
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+    marginVertical:hp(1)
   },
 });

@@ -16,4 +16,5 @@ export * from './svg';
 export * from './image';
 export * from './icon';
 export * from './colors';
+export * from './fonts';
 

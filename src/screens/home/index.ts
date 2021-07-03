@@ -1,4 +1,4 @@
-export * from './Chat'
+export * from '../chat/Chat'
 export * from './Home'
 export * from './Note'
 export * from './Courses'

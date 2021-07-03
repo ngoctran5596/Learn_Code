@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Register, Login, Home, Chat, Note, CoursesDetail,ProfileScreen,Setting, PostNewsScreen } from '@screens';
+import {  LoginView, Home, Chat, Note, CoursesDetail, ProfileScreen, Setting, Splash, PostNewsScreen, Questions } from '@screens';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NavigationContainer } from '@react-navigation/native';
+
 import {
   BottomNavigationOptionChat,
   BottomNavigationOptionHome,
@@ -24,23 +26,7 @@ const getMyStringValue = async () => {
   }
 }
 
-export const MyScreen = () => {
-  return (
-    <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen
-        name="Register"
-        options={{ headerShown: false }}
-        component={Register}
-      />
-      <Stack.Screen
-        name="Login"
-        options={{ headerShown: false }}
-        component={Login}
-      />
 
-    </Stack.Navigator>
-  );
-};
 const HomeStack = createStackNavigator();
 
 export const HomeCourse = () => {
@@ -92,27 +78,40 @@ export const MyHome = () => {
 const StackApp = createStackNavigator();
 export const MyApp = () => {
   return (
-    <StackApp.Navigator initialRouteName= 'MyHome'>
-      <StackApp.Screen
-        name="MyScreen"
+    <NavigationContainer>
+      <StackApp.Navigator initialRouteName='Login'>
+        <StackApp.Screen
+          name="Splash"
+          options={{ headerShown: false }}
+          component={Splash}
+        />
+       <Stack.Screen
+        name="Login"
         options={{ headerShown: false }}
-        component={MyScreen}
-      />
-      <StackApp.Screen
-        name="MyHome"
-        options={{ headerShown: false }}
-        component={MyHome}
+        component={LoginView}
       />
         <StackApp.Screen
-        name="Setting"
-        options={{ headerShown: false }}
-        component={Setting}
-      />
-       <StackApp.Screen
-        name="PostNews"
-        options={{ headerShown: false }}
-        component={PostNewsScreen}
-      />
-    </StackApp.Navigator>
+          name="MyHome"
+          options={{ headerShown: false }}
+          component={MyHome}
+        />
+        <StackApp.Screen
+          name="Setting"
+          options={{ headerShown: false }}
+          component={Setting}
+        />
+        <StackApp.Screen
+          name="PostNews"
+          options={{ headerShown: false }}
+          component={PostNewsScreen}
+        />
+          <StackApp.Screen
+          name="Questions"
+          options={{ headerShown: false }}
+          component={Questions}
+        />
+        
+      </StackApp.Navigator>
+    </NavigationContainer>
   );
 };

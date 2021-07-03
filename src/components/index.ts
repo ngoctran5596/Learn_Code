@@ -7,3 +7,4 @@ export * from './scrollView';
 export * from './post';
 export * from './form';
 export * from './Camera';
+export * from './chat';

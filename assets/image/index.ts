@@ -1,5 +1,5 @@
 export const LOGO = require('./logo.png');
-export const BACKGROUND = require('./bg.png');
+export const BACKGROUND = require('./bg.jpg');
 export const LINE = require('./Line1.png');
 export const FACEBOOK = require('./facebook.png');
 export const GOOGLE = require('./google.png');

@@ -1,3 +1,3 @@
 export * from './ButtonCustom';
-export * from './ButtonLoginLogup';
+export * from './ButtonSelect';
 export * from './BottomNavigationOption';
