@@ -8,7 +8,6 @@ export const createPostEpic = ($action: any) => {
   return $action.pipe(
     ofType(typesPost.GET_ALL_POSST),
     mergeMap((act: any) => {
-      console.log('ACTION', act);
       const post = {
         title: act.payload.title,
       };
@@ -37,8 +36,7 @@ export const getAllPostEpic = ($action: any) => {
         .get('newsfeed')
         .then((rs: any) => {
           const {data} = rs;
-          console.log('DATA', data);
-          return postActions.getAllPostSuccess(data);
+          return postActions.getAllPostSuccess(data.payload);
         })
         .catch((err: any) => {
           return postActions.getAllPostFailure(err);
@@ -54,7 +52,6 @@ export const commentPostEpic = ($action: any) => {
         .post('newsfeed')
         .then((rs: any) => {
           const {data} = rs;
-          console.log('DATA', data);
           return postActions.commentPostSuccess(data);
         })
         .catch((err: any) => {

@@ -8,9 +8,10 @@ import { ButtonLoginLogup } from '@components';
 import { USER } from '@assets';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../shared-store/redux/auth';
+import { NavigationContainer } from '@react-navigation/native';
 export const authlogic = (props: any) => {
   const messageChekEmail = useSelector((state: any) => state.auth.message);
-  const userStore = useSelector((state: any) => state.auth.user);
+  const userStore = useSelector((state: any) => state.auth.isLoading);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -41,12 +42,8 @@ export const authlogic = (props: any) => {
       password,
     };
     await dispatch(userActions.login(user));
-    await check();
-    if (userStore.length > 0) {
-      return props.navigation.navigate('MyHome')
-    }
-    return Alert.alert('Đăng nhập không thành công!', 'Vui lòng kiểm tra lại');
   };
+
   const selectIsToutor = (value: any) => {
     if (value === 'Người học') {
       setButomsheet([0, 0, 0]);
@@ -84,12 +81,20 @@ export const authlogic = (props: any) => {
     }
   };
 
+  React.useEffect(() => {
+    checkLogin();
+  }, [userStore])
 
   const check = () => {
     if (messageChekEmail?.msg) {
       return Alert.alert('Xác nhận mail!', 'Bạn hãy xác nhận mail để hoàn tất đăng ký!')
     }
     return false;
+  }
+  const checkLogin = () => {
+    if (userStore) {
+      return props.navigation.replace('MyHome')
+    }
   }
 
   return {

@@ -1,8 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { postActions } from '@share-store'
+import { useDispatch, useSelector } from 'react-redux';
 
 
 export const PostLogic = (props: any) => {
@@ -10,21 +9,7 @@ export const PostLogic = (props: any) => {
     const [posts, setPosts] = React.useState('');
     const [conten, setConten] = React.useState('');
     const [dataLocal, setDataLocal] = React.useState('')
-    const getTokent = async () => {
-        try {
-            const acessToken = await AsyncStorage.getItem('ACCESS-Token')
-            console.log("acessToken", acessToken);
-            if (acessToken !== null) {
-                setPosts(acessToken);
-            } else {
-                return;
-            }
-        } catch (e) {
-            // remove error
-        }
-
-    }
-
+    const getTokent = useSelector((state:any)=>state?.auth.user.accessToken);
     const getData = async () => {
         try {
             const value = await AsyncStorage.getItem('USER')
@@ -37,7 +22,6 @@ export const PostLogic = (props: any) => {
             return;
         }
     }
-    React.useEffect(() => { getTokent() }, [])
     const onPress = () => {
         props.navigation.goBack()
     };

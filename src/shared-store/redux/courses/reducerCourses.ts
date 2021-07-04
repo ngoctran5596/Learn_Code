@@ -1,6 +1,7 @@
 import {typesCoures} from './actionCourses';
 const initialState = {
   allCourse: [],
+  coursesDetail: [],
 };
 
 export const coursesReducer = (state = initialState, actions: any) => {
@@ -20,8 +21,21 @@ export const coursesReducer = (state = initialState, actions: any) => {
       return {
         ...state,
       };
+    case typesCoures.GET_COURSES_DETAIL:
+      return {
+        ...state,
+      };
+
+    case typesCoures.GET_COURSES_DETAIL_SUCCESS:
+      return {
+        ...state,
+        coursesDetail: payload.payload,
+      };
+    case typesCoures.GET_COURSES_DETAIL_FAILURE:
+      return {
+        ...state,
+      };
     default:
       return state;
   }
 };
- 

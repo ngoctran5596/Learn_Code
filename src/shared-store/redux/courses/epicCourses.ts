@@ -8,13 +8,11 @@ export const getAllCourses = ($action: any) => {
   return $action.pipe(
     ofType(typesCoures.GET_ALL_COURSES),
     mergeMap((act: any) => {
-      console.log('acttionnnnnnnnn',act)
       return $axios.config
         .get(
-           'courses'
+           'courseType'
         )
         .then((rs: any) => {
-          console.log('rsrsrsrsrsrsrs',rs)
           const {data} = rs;
           return coursesActions.getAllCoursesSuccess(data);
         })
@@ -24,4 +22,25 @@ export const getAllCourses = ($action: any) => {
     }),
   );
 };
+
+export const getCoursesDetail = ($action: any) => {
+  return $action.pipe(
+    ofType(typesCoures.GET_COURSES_DETAIL),
+    mergeMap((act: any) => {
+      console.log('actactactactact',act.payload);
+      return $axios.config
+        .get(
+           `courses/type/${act.payload.id}`
+        )
+        .then((rs: any) => {
+          const {data} = rs;
+          return coursesActions.getCoursesDetailSuccess(data);
+        })
+        .catch((err: any) => {
+          return coursesActions.getCoursesDetailFailure(err);
+        });
+    }),
+  );
+};
+
 

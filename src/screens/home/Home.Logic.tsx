@@ -1,63 +1,47 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {coursesActions } from '../../shared-store/redux';
+import { coursesActions, postActions } from '../../shared-store/redux';
 
 export const HomeLogic = (props: any) => {
   const dispatch = useDispatch();
-  const [dataLocal, setDataLocal] = React.useState();
+  const user = useSelector((state: any) => state?.auth?.user.user);
+  const dataCourses = useSelector((state: any) => state?.courses.allCourse);
+  const dataPost = useSelector((state: any) => state?.post.post);
+  const [screen, setScreen] = React.useState(0);
 
-  const data = useSelector((state)=>{console.log('state',state);
-return;})
-
-  // const Logout = async () => {
-  //   try {
-  //     await AsyncStorage.removeItem('USER');
-  //     await AsyncStorage.removeItem('ACCESS-Token');
-  //   } catch (e) {
-  //     // remove error
-  //   }
-    const coure =  AsyncStorage.getItem('courses');
-  //   props.navigation.navigate('Login');
-  // };
-  // const getData = async () => {
-  //   try {
-  //     const value = await AsyncStorage.getItem('USER');
-  //     if (value !== null) {
-  //       setDataLocal(JSON.parse(value));
-  //     } else {
-  //       return;
-  //     }
-  //   } catch (e) {
-  //     return;
-  //   }
-  // };
- 
-  // useEffect( () => {
-  //   try {
-  //      dispatch(coursesActions.getAllCourses(''));
-  //   } catch (e) {
-  //     return;
-  //   }
-  // }, [])
-
-  const onPress = () => {
-    props.navigation.navigate('CourseDetail');
+  const onPress = (id:any) => {
+    props.navigation.navigate('CourseDetail',{id});
   };
   const onPressProfile = () => {
-    props.navigation.navigate('Profile');
+    props.navigation.navigate('Profile',{user:user});
   };
   const onPressPostNews = () => {
     props.navigation.navigate('PostNews');
   };
 
-  console.log('dataLocal,dataLocal',coure );
+  React.useEffect(() => {
+    dispatch(coursesActions.getAllCourses(''));
+    dispatch(postActions.getAllPost(''));
+  }, []);
+
+  const dispatchCourseDetail = (valueID: any) => {
+    dispatch(coursesActions.getCoursesDetail(valueID))
+  };
+
+  const setMyScreen = (screen: any) => {
+    setScreen(screen)
+  };
+
+  console.log('dataLocal,dataLocal', user, dataCourses);
   return {
-    dataLocal,
-    
+     screen, setScreen,
+    user,
     onPress,
     onPressProfile,
-    // Logout,
     onPressPostNews,
+    dataCourses, dataPost,
+    dispatchCourseDetail,
+    setMyScreen
   };
 };

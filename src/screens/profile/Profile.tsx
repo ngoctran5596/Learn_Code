@@ -1,19 +1,12 @@
-import React, {useState, useEffect, useContext} from 'react';
+import { BACK, CHATLOVE, Colors, SETTING } from '@assets';
+import { HeaderNav } from '@components';
+import React, { useEffect, useState } from 'react';
 import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-  SafeAreaView,
+  Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View
 } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { ProfileLogic } from './Profile.Logic';
 
-import {FormButton, HeaderNav} from '@components';
-import {HomeLogic} from './Home.Logic';
-import {BACK, CHAT, CHATLOVE, Colors, MENUUSER, SETTING} from '@assets';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {ProfileLogic} from './Profile.Logic';
 
 export const ProfileScreen = (props: any) => {
   const {dataLocal, onPress, Logout, getData, onPressSetting}: any =
@@ -25,7 +18,8 @@ export const ProfileScreen = (props: any) => {
   useEffect(() => {
     getData();
   }, []);
-
+  const user =props.route.params.user;
+ 
   const handleDelete = () => {};
 
   return (
@@ -35,16 +29,16 @@ export const ProfileScreen = (props: any) => {
         contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}}
         showsVerticalScrollIndicator={false}>
         <HeaderNav
-          onGoBack={onPress}
+          setMyScreen={onPress}
           title="Profile"
           imgSetting={SETTING}
           imgMenu={BACK}
           onPressProfile={onPressSetting}
         />
-        <Image style={styles.userImg} source={{uri: dataLocal?.image}} />
-        <Text style={styles.userName}>{dataLocal?.name} </Text>
+        <Image style={styles.userImg} source={{uri: user?.image}} />
+        <Text style={styles.userName}>{user?.name} </Text>
 
-        <Text style={styles.aboutUser}>No details added</Text>
+        <Text style={styles.aboutUser}>{user?.isTurtor ===0? 'Người học': 'Người dạy'}</Text>
         <View style={styles.userBtnWrapper}>
           <TouchableOpacity style={styles.userBtn} onPress={() => {}}>
             <Image

@@ -7,7 +7,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
 export const PostComponent = (props: any) => {
     const [isLoadComment, setIsLoadComment] = React.useState(false);
-    const { title, image, imageLike, classa, description, numberlike, numberComment, content } = props;
+    const { title, image, imageLike, classa, onclickComment,description, numberlike, numberComment, content } = props;
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -56,21 +56,23 @@ export const PostComponent = (props: any) => {
                         <Text>share</Text>
                     </View>
                 </View>
-                { isLoadComment ? <View style={{
-                        height: hp(10),
-                        flexDirection: 'column',
-                    }}>
-                        {content?.map((item: any,index:any) => {
-                            console.log("item.userId.image",item.userId.image);
-                            return <View style={styles.like} key={index}>
-                                <Image source={{ uri: item.userId.image }} style={styles.icon} />
-                                <Text>{item.content}</Text>
-                            </View>
-                        })}
-                    </View> : null
+                {isLoadComment ? <View style={{
+                    height: hp(10),
+                    flexDirection: 'column',
+                }}>
+                    {content?.map((item: any, index: any) => {
+                        console.log("item.userId.image", item.userId.image);
+                        return <View style={styles.like} key={index}>
+                            <Image source={{ uri: item.userId.image }} style={styles.icon} />
+                            <Text>{item.content}</Text>
+                        </View>
+                    })}
+                </View> : null
 
                 }
-
+                <TouchableOpacity style={styles.comment} onPress={()=>onclickComment}>
+                    <Text>Comment</Text>
+                </TouchableOpacity>
 
             </View>
 
@@ -115,5 +117,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     }, like: {
         flexDirection: 'row', marginVertical: hp(1),
+    },
+    comment:{
+        width:'100%',
+        height:hp(4),
+        borderRadius:wp(2),
+        borderWidth:0.5
     }
 })

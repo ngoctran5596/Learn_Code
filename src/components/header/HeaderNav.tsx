@@ -4,14 +4,13 @@ import { ScrollView, Image, StyleSheet, Text, View, Platform, TouchableOpacity }
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 
 export const HeaderNav = (props: any) => {
-    const { title, img, imgMenu, imgNotification, onPressProfile, imgSetting ,onGoBack} = props;
-
+    const { title, img, imgMenu, imgNotification, onPressProfile, setMyScreen, imgSetting, onGoBack } = props;
     return (
         <View style={styles.container}>
             <View style={{ paddingBottom: 20 }}>
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={()=>onGoBack()}>
-                        {imgMenu ? <Image style={styles.image} source={imgMenu} /> : <Text></Text>}
+                    <TouchableOpacity onPress={setMyScreen}>
+                        {imgMenu ? <Image style={styles.image} source={imgMenu} /> : null}
                     </TouchableOpacity>
                     <Text style={styles.text}>{title}</Text>
                     <View style={{ flexDirection: 'row' }}>

@@ -14,7 +14,7 @@ import { ButtonLoginLogup, HeaderNav } from '@components';
 import { HomeLogic } from './Home.Logic';
 import { BACK, CHAT, CHATLOVE, Colors, DELETE, LENGUAGE, LOGOUT, MENUUSER, NOTIFICATIONSETTING, RENAME, REPOST, RESETPASS, SETTING, USER } from '@assets';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { ProfileLogic } from './Profile.Logic';
+import { ProfileLogic } from '../profile/Profile.Logic';
 
 export const Setting = (props: any) => {
     const { dataLocal, onPress, Logout, getData }:any = ProfileLogic(props);
@@ -48,7 +48,7 @@ export const Setting = (props: any) => {
                     <ButtonLoginLogup text='Đổi mật khẩu' icon={RESETPASS} />
                     <ButtonLoginLogup text='Xóa tài khoản của bạn' icon={DELETE} />
                     <ButtonLoginLogup text='Báo cáo sự cố' icon={REPOST} />
-                    <ButtonLoginLogup text='Đăng xuất' icon={LOGOUT} />
+                    <ButtonLoginLogup text='Đăng xuất' icon={LOGOUT} onPress={Logout}/>
                 </View>
 
 

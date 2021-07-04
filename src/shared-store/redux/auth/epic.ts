@@ -8,7 +8,6 @@ export const getUser = ($action: any) => {
   return $action.pipe(
     ofType(typess.GET_USER),
     mergeMap((act: any) => {
-      console.log('act',act)
       return $axios.config
         .get('user/userById', {
           headers: {
@@ -29,11 +28,9 @@ export const loginUser = ($action: any) => {
   return $action.pipe(
     ofType(typess.LOGIN),
     mergeMap((act: any) => {
-      console.log('act',act)
       return $axios.config
         .post('user/login',act.payload)
         .then((rs: any) => {
-          console.log('rssssssssss',rs)
           const {data} = rs;
           return userActions.loginSuccess(data);
         })

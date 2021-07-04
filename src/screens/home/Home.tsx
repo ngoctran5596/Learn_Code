@@ -16,27 +16,27 @@ import { HomeLogic } from './Home.Logic';
 import { styles } from './style';
 
 export const Home = (props: any) => {
-    const { data,onPress, dataLocal, dataTest, onPressProfile, onPressPostNews }: any = HomeLogic(props);
+    const { dataPost, onPress, dataCourses, onPressProfile, onPressPostNews, user } =HomeLogic(props) ;
     return (
         <View>
             <View>
-                <HeaderNav imgNotification={NOTIFICATION} imgMenu={MENU} img={dataLocal?.image} title="Home" onPressProfile={onPressProfile} />
-                <PostNews onPress={onPressPostNews} icon={dataLocal?.image} text='Bạn đang nghĩ gì ?' />
+                <HeaderNav imgNotification={NOTIFICATION} imgMenu={MENU} img={user?.image} title="Home" onPressProfile={onPressProfile} />
+                <PostNews onPress={onPressPostNews} icon={user?.image} text='Bạn đang nghĩ gì ?' />
             </View>
 
-            {dataTest ? (
+            {dataCourses ? (
                 <VirtualizedView style={{ marginTop: hp(1) }} >
                     <Text style={styles.text}>Khóa học</Text>
                     <FlatList
                         keyExtractor={(item: any, index: any) => index.toString()}
-                        data={data}
+                        data={dataCourses}
                         horizontal={true}
                         renderItem={({ item }) => {
                             return (
                                 <HeaderNews
                                     title={item.name}
                                     image={item.image}
-                                    onClick={onPress}
+                                    onClick={()=>onPress(item._id)}
                                 />
                             );
                         }}
@@ -45,9 +45,10 @@ export const Home = (props: any) => {
 
                     <FlatList
                         keyExtractor={(item: any, index: any) => index.toString()}
-                        data={dataTest}
+                        data={dataPost}
                         renderItem={({ item }) => {
                             return (
+                                
                                 <PostComponent
                                     classa={item.typeClassId?.name}
                                     description={item.description}

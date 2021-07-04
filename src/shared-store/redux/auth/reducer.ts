@@ -1,12 +1,12 @@
 import {typess} from './action';
 const initialState = {
   user: [],
-  message:[]
+  message:[],
+  isLoading:false
 };
 
 export const UserReducer = (state = initialState, actions: any) => {
   let {payload} = actions;
-  console.log('actionsactionsactionsactionsactionsactionsactions', actions);
   switch (actions.type) {
     case typess.GET_USER:
       return {
@@ -21,6 +21,7 @@ export const UserReducer = (state = initialState, actions: any) => {
     case typess.GET_USER_FAILURE:
       return {
         ...state,
+        
       };
     case typess.LOGIN:
       return {
@@ -30,11 +31,13 @@ export const UserReducer = (state = initialState, actions: any) => {
     case typess.LOGIN_SUCCESS:
       return {
         ...state,
-        user: payload,
+        user: payload,  
+        isLoading:true,
       };
     case typess.LOGIN_FAILURE:
       return {
         ...state,
+        isLoading:false,
       };
     case typess.REGISTER:
       return {
@@ -50,10 +53,11 @@ export const UserReducer = (state = initialState, actions: any) => {
       return {
         ...state,
       };
-    case typess.COFIRMEMAIL:
+    case typess.LOGOUT:
         return {
           ...state,
-          message:[]
+          user:payload,
+          isLoading:false
         };
     default:
       return state;

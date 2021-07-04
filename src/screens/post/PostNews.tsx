@@ -11,14 +11,13 @@ import {
 
 import { FormButton, HeaderNav } from '@components';
 // import Camera from './Camera.logic';
-import { HomeLogic } from './Home.Logic';
 import { BACK, CHAT, CHATLOVE, Colors, MENUUSER, SETTING } from '@assets';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { PostLogic } from './Post.Logic';
 import { TextInput } from 'react-native-gesture-handler';
 
 export const PostNewsScreen = (props: any) => {
-    const { dataLocal, conten, onPress, posts, getData, onPressSetting, setConten, distPatchPost }:any =
+    const { dataLocal,getTokent, conten, onPress, posts, getData, onPressSetting, setConten, distPatchPost }:any =
         PostLogic(props);
 
 
@@ -34,7 +33,7 @@ export const PostNewsScreen = (props: any) => {
                 style={styles.container}
                 showsVerticalScrollIndicator={false}>
                 <HeaderNav
-                    onGoBack={onPress}
+                    setMyScreen={onPress}
                     title="Post news"
                     imgMenu={BACK}
                     onPressProfile={onPressSetting}
@@ -58,8 +57,8 @@ export const PostNewsScreen = (props: any) => {
                 <View>
                     {/* <Camera/> */}
                 </View>
-                {/* <View style={styles.userBtnWrapper}>
-                    <TouchableOpacity style={styles.userBtn} onPress={() => { distPatchPost(posts, conten) }}>
+                <View style={styles.userBtnWrapper}>
+                    <TouchableOpacity style={styles.userBtn} onPress={() => distPatchPost(getTokent,conten) }>
                         <Image
                             style={{ width: wp(5), height: wp(5), marginHorizontal: wp(1) }}
                             source={CHATLOVE}
@@ -67,7 +66,7 @@ export const PostNewsScreen = (props: any) => {
                         <Text style={styles.userBtnTxt}>Đăng Post</Text>
                     </TouchableOpacity>
                 </View>
- */}
+
 
             </ScrollView>
         </SafeAreaView>

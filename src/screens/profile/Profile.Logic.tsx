@@ -1,19 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import {userActions} from '../../shared-store/redux'
 
 
 export const ProfileLogic = (props: any) => {
     const dispatch = useDispatch();
     const [dataLocal, setDataLocal] = React.useState('')
     const Logout = async () => {
-        try {
-            await AsyncStorage.removeItem('USER')
-            await AsyncStorage.removeItem('ACCESS-Token')
-        } catch (e) {
-            // remove error
-        }
-
+        dispatch(userActions.LOGOUT(''))
         props.navigation.navigate('Login')
     }
     const getData = async () => {

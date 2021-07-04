@@ -1,30 +1,13 @@
-import * as React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {  LoginView, Home, Chat, Note, CoursesDetail, ProfileScreen, Setting, Splash, PostNewsScreen, Questions } from '@screens';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { NavigationContainer } from '@react-navigation/native';
-
 import {
   BottomNavigationOptionChat,
   BottomNavigationOptionHome,
-  BottomNavigationOptionNote,
+  BottomNavigationOptionNote
 } from '@components';
-
-const [isLoading, setIsLoading] = React.useState(false)
-
-const Stack = createStackNavigator();
-
-
-const getMyStringValue = async () => {
-  try {
-    let check = await AsyncStorage.getItem('ACCESS-Token')
-    if (check) return setIsLoading(true)
-
-  } catch (e) {
-    console.log('ERORRORNavigation', e);
-  }
-}
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Chat, CoursesDetail, Home, LoginView, Note, PostNewsScreen, ProfileScreen, Questions, Setting, Splash } from '@screens';
+import * as React from 'react';
 
 
 const HomeStack = createStackNavigator();
@@ -54,7 +37,6 @@ export const HomeCourse = () => {
 const BottomStack = createBottomTabNavigator();
 
 export const MyHome = () => {
-  React.useEffect(() => { getMyStringValue() }, [])
   return (
     <BottomStack.Navigator initialRouteName="Home">
       <BottomStack.Screen
@@ -79,17 +61,17 @@ const StackApp = createStackNavigator();
 export const MyApp = () => {
   return (
     <NavigationContainer>
-      <StackApp.Navigator initialRouteName='Login'>
+      <StackApp.Navigator initialRouteName='Splash'>
         <StackApp.Screen
           name="Splash"
           options={{ headerShown: false }}
           component={Splash}
         />
-       <Stack.Screen
-        name="Login"
-        options={{ headerShown: false }}
-        component={LoginView}
-      />
+        <StackApp.Screen
+          name="Login"
+          options={{ headerShown: false }}
+          component={LoginView}
+        />
         <StackApp.Screen
           name="MyHome"
           options={{ headerShown: false }}
@@ -105,12 +87,12 @@ export const MyApp = () => {
           options={{ headerShown: false }}
           component={PostNewsScreen}
         />
-          <StackApp.Screen
+        <StackApp.Screen
           name="Questions"
           options={{ headerShown: false }}
           component={Questions}
         />
-        
+
       </StackApp.Navigator>
     </NavigationContainer>
   );
