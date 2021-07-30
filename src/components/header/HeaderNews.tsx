@@ -1,5 +1,5 @@
 import { Colors } from '@assets';
-import React from 'react';
+import React, { FC } from 'react';
 import {
   Image,
   StyleSheet,
@@ -7,16 +7,26 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-export const HeaderNews = (props: any) => {
+type Props = {
+  children?: any;
+  styleContainer?: StyleProp<ViewStyle>;
+  image?: any;
+  onClick?: any;
+  title?: string;
+};
+export const HeaderNews: FC<Props> = (props) => {
+
   return (
-    <TouchableOpacity style={styles.container} onPress={() => props.onClick()}>
+    <TouchableOpacity style={[styles.container, props.styleContainer]}onPress={() => props.onClick ? props.onClick() :null}>
       <View style={styles.card}>
-        <View>{props.children}</View>
         <Image source={{ uri: props.image }} style={styles.img} />
         <Text style={styles.title}>{props.title}</Text>
+        {props.children}
       </View>
 
     </TouchableOpacity>

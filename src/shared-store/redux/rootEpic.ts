@@ -1,7 +1,8 @@
 import {combineEpics} from 'redux-observable';
 import {getAllCourses, getCoursesDetail} from './courses/epicCourses';
 import {getUser, loginUser, registerUser} from './auth/epic';
-import {getAllPostEpic, commentPostEpic} from './post/epicPost';
+import {getAllPostEpic, commentPostEpic,likePostEpic} from './post/epicPost';
+// import {chatUserListEpic} from './chat/epic';
 
 export const rootEpic = combineEpics(
   getAllCourses,
@@ -10,6 +11,7 @@ export const rootEpic = combineEpics(
   loginUser,
   registerUser,
   getCoursesDetail,
-  commentPostEpic,
+  commentPostEpic,likePostEpic
+  // chatUserListEpic
 );
 // export default rootEpic;

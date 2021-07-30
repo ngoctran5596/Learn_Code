@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useContext } from 'react';
 import {
     View,
@@ -8,16 +9,16 @@ import {
     ScrollView,
     SafeAreaView,
 } from 'react-native';
-
+import { Camera } from '@components'
 import { FormButton, HeaderNav } from '@components';
-// import Camera from './Camera.logic';
+import { RNCamera, FaceDetector } from 'react-native-camera';
 import { BACK, CHAT, CHATLOVE, Colors, MENUUSER, SETTING } from '@assets';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { PostLogic } from './Post.Logic';
 import { TextInput } from 'react-native-gesture-handler';
 
 export const PostNewsScreen = (props: any) => {
-    const { dataLocal,getTokent, conten, onPress, posts, getData, onPressSetting, setConten, distPatchPost }:any =
+    const {uploadProfileImage,takePicture,image, cameraLoad,loadCamera, setLoadCamera, dataLocal, getTokent, conten, onPress, posts, getData, onPressSetting, setConten, distPatchPost }: any =
         PostLogic(props);
 
 
@@ -29,7 +30,7 @@ export const PostNewsScreen = (props: any) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-            <ScrollView
+            {loadCamera ? <Camera takePicture={takePicture}/> : (<ScrollView
                 style={styles.container}
                 showsVerticalScrollIndicator={false}>
                 <HeaderNav
@@ -50,15 +51,16 @@ export const PostNewsScreen = (props: any) => {
                         multiline
                         plachodel='Ban dang nghi gi'
                         numberOfLines={6}
-                        onChangeText={(text:any) => setConten(text)}
+                        onChangeText={(text: any) => setConten(text)}
                         value={conten}
                     />
                 </View>
-                <View>
-                    {/* <Camera/> */}
+                <View style={{width:'100%',height:300}}>
+                    <Image style={{width:'100%',height:'100%'}} source={{uri:image}}/>
                 </View>
+
                 <View style={styles.userBtnWrapper}>
-                    <TouchableOpacity style={styles.userBtn} onPress={() => distPatchPost(getTokent,conten) }>
+                    <TouchableOpacity style={styles.userBtn} onPress={() => distPatchPost(getTokent, conten, image)}>
                         <Image
                             style={{ width: wp(5), height: wp(5), marginHorizontal: wp(1) }}
                             source={CHATLOVE}
@@ -66,10 +68,26 @@ export const PostNewsScreen = (props: any) => {
                         <Text style={styles.userBtnTxt}>Đăng Post</Text>
                     </TouchableOpacity>
                 </View>
+                <View style={styles.userBtnWrapper}>
+                    <TouchableOpacity style={styles.userBtn} onPress={() => setLoadCamera(true)}>
+                        <Image
+                            style={{ width: wp(5), height: wp(5), marginHorizontal: wp(1) }}
+                            source={CHATLOVE}
+                        />
+                        <Text style={styles.userBtnTxt}>Camera</Text>
+                    </TouchableOpacity>
+                </View>
 
 
-            </ScrollView>
+
+
+            </ScrollView>)}
+
         </SafeAreaView>
+
+
+
+
     );
 };
 
@@ -87,7 +105,6 @@ const UselessTextInput = (props: any) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: '#F2F4F7',
     },
     textInput: {

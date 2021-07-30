@@ -29,12 +29,22 @@ export const Login = (props: any) => {
     selectScreen,
     setStringValue,
     submitLogin,
-    color, setName,
+    color,
+    setName,
     setEmail,
     setPassword,
     submitRegister,
     selectIsToutor,
-    isTutor, isloading, setIsTutor, butomsheet, bottomSheetRef, fall, TextTutor
+    isTutor,
+    isloading,
+    setIsTutor,
+    butomsheet,
+    bottomSheetRef,
+    fall,
+    TextTutor,
+    errorEmail,
+    errorName,
+    errorPass,
   } = props;
 
   const renderContent = () => (
@@ -47,11 +57,18 @@ export const Login = (props: any) => {
       <Text style={{ ...styles.text, fontSize: 15, color: 'black' }}>
         Kéo xuống để đóng...
       </Text>
-      <ButtonLoginLogup text="Người học" icon={USER} onPress={() => selectIsToutor('Người học')} />
-      <ButtonLoginLogup text="Người dạy" icon={USER} onPress={() => selectIsToutor('Người dạy')} />
+      <ButtonLoginLogup
+        text="Người học"
+        icon={USER}
+        onPress={() => selectIsToutor('Người học')}
+      />
+      <ButtonLoginLogup
+        text="Người dạy"
+        icon={USER}
+        onPress={() => selectIsToutor('Người dạy')}
+      />
     </View>
   );
-
 
   return (
     <View style={styles.container}>
@@ -75,9 +92,10 @@ export const Login = (props: any) => {
               backgroundColor: color.register,
               borderTopEndRadius: 20,
             }}
-            onPress={() =>{
-              check
-             selectScreen('register')}} >
+            onPress={() => {
+              check;
+              selectScreen('register');
+            }}>
             <Text style={{ ...styles.text, fontSize: 20, color: 'black' }}>
               Register
             </Text>
@@ -93,28 +111,42 @@ export const Login = (props: any) => {
             marginHorizontal: 10,
           }}>
           {!(isloading === 'register') ? null : (
-            <TextInput
-              autoCompleteType="name"
-              placeholder="Name"
-              value={name}
-              style={styles.input}
-              onChangeText={(text: any) => setName(text)}
-            />
+            <View>
+              <TextInput
+                autoCompleteType="name"
+                placeholder="Name"
+                value={name}
+                style={styles.input}
+                onChangeText={(text: any) => setName(text)}
+              />
+              <Text style={{color:'red'}}>
+                {errorName ? errorName : null}
+              </Text>
+            </View>
           )}
-          <TextInput
-            autoCompleteType="email"
-            placeholder="Email"
-            style={styles.input}
-            value={email}
-            onChangeText={(text: any) => setEmail(text)}
-          />
-          <TextInput
-            secureTextEntry={true}
-            placeholder="Password"
-            style={styles.input}
-            value={password}
-            onChangeText={(text: any) => setPassword(text)}
-          />
+          <View>
+            <TextInput
+              autoCompleteType="email"
+              placeholder="Email"
+              style={styles.input}
+              value={email}
+              onChangeText={(text: any) => setEmail(text)}
+            />
+
+            <Text style={{color:'red'}}>{errorEmail ? errorEmail : null}</Text>
+          </View>
+          <View>
+            <TextInput
+              secureTextEntry={true}
+              placeholder="Password"
+              style={styles.input}
+              value={password}
+              onChangeText={(text: any) => setPassword(text)}
+            />
+
+            <Text style={{color:'red'}}>{errorPass ? errorPass : null}</Text>
+          </View>
+
           {!(isloading === 'register') ? null : (
             <ButtonLoginLogup
               text={TextTutor}

@@ -39,7 +39,7 @@ export const LoginView = (props: any) => {
     butomsheet,
     bottomSheetRef,
     fall,
-    point,setPoint,TextTutor,setTextTutor
+    point,setPoint,TextTutor,setTextTutor,errorEmail,errorName,errorPass
   } = authlogic(props);
 
   const renderFrame = () => {
@@ -71,6 +71,9 @@ export const LoginView = (props: any) => {
             setName={setName}
             check={check}
             name={name}
+            errorEmail={errorEmail}
+            errorName={errorName}
+            errorPass={errorPass}
           />
         );
       case 1:

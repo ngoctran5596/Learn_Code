@@ -16,7 +16,10 @@ export const authlogic = (props: any) => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [isloading, setIsloading] = useState('login');
-  const [isTutor, setIsTutor] = useState("0");
+  const [errorEmail, setErrorEmail] = useState('');
+  const [errorPass, setErrorPass] = useState('');
+  const [errorName, setErrorName] = useState('');
+  const [isTutor, setIsTutor] = useState('0');
   const [screen, setScreen] = useState(0);
   const [point, setPoint] = useState(0);
   const [butomsheet, setButomsheet] = useState([0, 0, 0]);
@@ -47,29 +50,48 @@ export const authlogic = (props: any) => {
   const selectIsToutor = (value: any) => {
     if (value === 'Người học') {
       setButomsheet([0, 0, 0]);
-      setTextTutor('Người học')
-      return setIsTutor("0");
+      setTextTutor('Người học');
+      return setIsTutor('0');
     } else if (value === 'Người dạy') {
       setScreen(1);
     } else {
       setButomsheet([0, 0, 0]);
       setScreen(0);
-      setTextTutor('Người dạy')
+      setTextTutor('Người dạy');
       return setIsTutor('1');
     }
   };
-  const submitRegister = async () => {
+
+  const submitRegister = () => {
     const user = {
       name,
       email,
       password,
       isTutor,
     };
-    await dispatch(userActions.register(user));
-    check();
-    setIsloading("login");
-    setColor({ login: '#66CCCC', register: 'white' });
+    if (name == null || name == '' || name.length <= 4) {
+      return setErrorName('Name không để trống,phải 5 ký tự!');
+    } else if (email == null || email == '') {
+      setErrorName('');
+      return setErrorEmail('Email phải đúng định dạng!');
+    } else if (password == null || password == '' || password.length <= 7) {
+      setErrorEmail('');
+      return setErrorPass('Pass không để trống và từ 8 ký tự trở lên!');
+    } else {
+      setErrorPass('');
+      new Promise(resolve => {
+        resolve(dispatch(userActions.register(user)));
+      }).then((res: any) => {
+        setIsloading('login');
+        setColor({ login: '#66CCCC', register: 'white' });
+        Alert.alert(
+          'Xác nhận mail!',
+          `Bạn hãy xác nhận email ${res?.payload?.email} là của bạn,để hoàn tất đăng ký!`,
+        );
+      });
+    }
   };
+
   const selectScreen = (screen: any) => {
     if (screen === 'login') {
       setIsloading(screen);
@@ -83,19 +105,24 @@ export const authlogic = (props: any) => {
 
   React.useEffect(() => {
     checkLogin();
-  }, [userStore])
+  }, [userStore]);
 
   const check = () => {
     if (messageChekEmail?.msg) {
-      return Alert.alert('Xác nhận mail!', 'Bạn hãy xác nhận mail để hoàn tất đăng ký!')
+      return Alert.alert(
+        'Xác nhận mail!',
+        'Bạn hãy xác nhận mail để hoàn tất đăng ký!',
+      );
     }
     return false;
-  }
+  };
   const checkLogin = () => {
     if (userStore) {
-      return props.navigation.replace('MyHome')
+      return props.navigation.replace('MyHome');
+    } else {
+      return;
     }
-  }
+  };
 
   return {
     email,
@@ -108,13 +135,23 @@ export const authlogic = (props: any) => {
     isTutor,
     butomsheet,
     fall,
-    screen, setScreen,
+    screen,
+    setScreen,
     bottomSheetRef,
     setEmail,
     setPassword,
     setIsTutor,
     submitRegister,
-    selectIsToutor, name,
-    point, setPoint, TextTutor, setTextTutor, setName, check
+    selectIsToutor,
+    name,
+    point,
+    setPoint,
+    TextTutor,
+    setTextTutor,
+    setName,
+    check,
+    errorEmail,
+    errorName,
+    errorPass,
   };
 };

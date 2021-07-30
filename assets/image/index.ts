@@ -30,3 +30,4 @@ export const LENGUAGE= require('./lenguage.png');
 export const LOGOUT= require('./logout.png');
 export const RESETPASS= require('./resetPass.png');
 export const DELETE= require('./error.png');
+export const LIKEDD= require('./likedd.png');

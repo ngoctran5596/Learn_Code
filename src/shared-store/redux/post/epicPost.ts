@@ -2,14 +2,14 @@ import {postActions, typesPost} from './actionPost';
 import {ofType} from 'redux-observable';
 import {mergeMap} from 'rxjs/operators';
 import axios from 'axios';
-import { $axios } from '@api';
+import {$axios} from '@api';
 
 export const createPostEpic = ($action: any) => {
   return $action.pipe(
-    ofType(typesPost.GET_ALL_POSST),
+    ofType(typesPost.GET_ALL_POST),
     mergeMap((act: any) => {
       const post = {
-        title: act.payload.title,
+        description: act.payload.title,
       };
       const headers = {
         Authorization: 'Bearer ' + act.payload.accessTokent,
@@ -30,7 +30,7 @@ export const createPostEpic = ($action: any) => {
 
 export const getAllPostEpic = ($action: any) => {
   return $action.pipe(
-    ofType(typesPost.GET_ALL_POSST),
+    ofType(typesPost.GET_ALL_POST),
     mergeMap((act: any) => {
       return $axios.config
         .get('newsfeed')
@@ -44,13 +44,16 @@ export const getAllPostEpic = ($action: any) => {
     }),
   );
 };
+
 export const commentPostEpic = ($action: any) => {
   return $action.pipe(
-    ofType(typesPost.COMMENT_POSST),
+    ofType(typesPost.COMMENT_POST),
     mergeMap((act: any) => {
+      console.log('actactactactactactactactact', act);
       return $axios.config
-        .post('newsfeed')
+        .post(`newsfeed/${act.payload.idPost}`, act.payload.data)
         .then((rs: any) => {
+          console.log('rsrsrsrsrsrsrsrs', rs.data);
           const {data} = rs;
           return postActions.commentPostSuccess(data);
         })
@@ -59,4 +62,24 @@ export const commentPostEpic = ($action: any) => {
         });
     }),
   );
-}
+};
+
+
+export const likePostEpic = ($action: any) => {
+  return $action.pipe(
+    ofType(typesPost.LIKE_POST),
+    mergeMap((act: any) => {
+      console.log('actactactactactactactactact', act);
+      return $axios.config
+        .post(`newsfeed/${act.payload.idPost}`, act.payload.data)
+        .then((rs: any) => {
+          console.log('rsrsrsrsrsrsrsrs', rs.data);
+          const {data} = rs;
+          return postActions.likePostSuccess(data);
+        })
+        .catch((err: any) => {
+          return postActions.likePostFailure(err);
+        });
+    }),
+  );
+};

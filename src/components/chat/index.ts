@@ -1,3 +1,4 @@
 export * from './ChatLine';
-export * from './ChatAvatar';
+export * from './ChatListItem';
 export * from './ChatInput';
+export * from './ContactListItem';

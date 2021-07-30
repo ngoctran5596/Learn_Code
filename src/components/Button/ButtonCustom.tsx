@@ -4,7 +4,12 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-export const ButtonCustom = (props: any) => {
+
+type Iprops={
+  text ?:string,
+  onPress ?:any
+}
+export const ButtonCustom = (props: Iprops) => {
   const {onPress, text} = props;
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>

@@ -6,7 +6,7 @@ import {
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Chat, CoursesDetail, Home, LoginView, Note, PostNewsScreen, ProfileScreen, Questions, Setting, Splash } from '@screens';
+import { ChatsScreen, CoursesDetail,MessageScreen, Home, LoginView, Note, PostNewsScreen, ProfileScreen, Questions, Setting, Splash } from '@screens';
 import * as React from 'react';
 
 
@@ -47,7 +47,7 @@ export const MyHome = () => {
       <BottomStack.Screen
         name="Chat"
         options={BottomNavigationOptionChat}
-        component={Chat}
+        component={ChatsScreen}
       />
       <BottomStack.Screen
         name="Note"
@@ -92,6 +92,12 @@ export const MyApp = () => {
           options={{ headerShown: false }}
           component={Questions}
         />
+           <StackApp.Screen
+          name="Message"
+          options={{ headerShown: false }}
+          component={MessageScreen}
+        />
+
 
       </StackApp.Navigator>
     </NavigationContainer>

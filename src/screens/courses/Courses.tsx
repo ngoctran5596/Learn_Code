@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
-import { HeaderNav, PostComponent } from '@components'
+import { HeaderNav, HeaderNews, PostComponent } from '@components'
 import { BACK } from '@assets'
 import { CoursesLogic } from './Courses.Logic'
 import { heightPercentageToDP } from 'react-native-responsive-screen'
@@ -16,10 +16,10 @@ export const CoursesDetail = (props: any) => {
 
             <FlatList
                 data={course}
-                renderItem={(item) => {
-                    return (<View>
-                        <Text>{item?.item?.name}</Text>
-                    </View>)
+                renderItem={({item}) => {
+                    return (<HeaderNews styleContainer={styles.card}title={item.name} image={item.image}>
+                        <Text>{item.description}</Text>
+                    </HeaderNews>)
                 }}
             />
         </View>
@@ -30,5 +30,8 @@ export const CoursesDetail = (props: any) => {
 const styles = StyleSheet.create({
     container:{
         flex:1
+    },
+    card:{
+        width:'98%'
     }
 })
