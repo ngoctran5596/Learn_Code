@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState, useRef, useEffect } from "react";
 import { Alert, StyleSheet, Text, View } from 'react-native';
 import { $axios } from '@api';
 import { styles } from './style';
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { ButtonLoginLogup } from '@components';
-import { USER } from '@assets';
+import { Colors, USER } from '@assets';
+import { socket } from '@screens';
 import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../../shared-store/redux/auth';
-import { NavigationContainer } from '@react-navigation/native';
+import { userActions, coursesActions, postActions } from '../../shared-store/redux';
+import { useNavigation } from '@react-navigation/native';
+
 export const authlogic = (props: any) => {
   const messageChekEmail = useSelector((state: any) => state.auth.message);
   const userStore = useSelector((state: any) => state.auth.isLoading);
@@ -29,22 +32,32 @@ export const authlogic = (props: any) => {
   let fall = new Animated.Value(0);
 
   const [color, setColor] = useState({
-    login: '#66CCCC',
+    login: Colors.PURPLE,
     register: 'white',
   });
   const [TextTutor, setTextTutor] = useState('Bạn Là ai...?');
-  const sheetRef = React.useRef(null);
+  const sheetRef = useRef(null);
 
   const setStringValue = (value: any) => {
     setButomsheet([450, 300, 0]);
     return bottomSheetRef?.current?.snapTo(0);
   };
-  const submitLogin = async () => {
+  const submitLogin =() => {
     const user = {
       email,
       password,
     };
-    await dispatch(userActions.login(user));
+    const promise = new Promise(function (resolve, reject) {
+      resolve(
+        dispatch(userActions.login(user))
+      )
+    });
+    promise.then(function (data) {
+      console.log('ĐAAAAAATA',data);
+      dispatch(coursesActions.getAllCourses(''));
+      dispatch(postActions.getAllPost(''));
+    })
+
   };
 
   const selectIsToutor = (value: any) => {
@@ -95,15 +108,15 @@ export const authlogic = (props: any) => {
   const selectScreen = (screen: any) => {
     if (screen === 'login') {
       setIsloading(screen);
-      return setColor({ login: '#66CCCC', register: 'white' });
+      return setColor({ login: Colors.PURPLE, register: 'white' });
     }
     if (screen === 'register') {
       setIsloading(screen);
-      return setColor({ login: 'white', register: '#FF99FF' });
+      return setColor({ login: 'white', register: Colors.PURPLE });
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     checkLogin();
   }, [userStore]);
 

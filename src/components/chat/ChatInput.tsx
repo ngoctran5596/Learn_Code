@@ -6,19 +6,21 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
-} from 'react-native'
+} from 'react-native';
 
-export function ChatInput({ message, onPress, onChange, loading }:any) {
+export function ChatInput(props:any) {
+ const { txtMsg, onPress, onChange, loading } = props;
   return (
     <View style={styles.inputBox}>
       <TextInput
+         {...props} 
         style={styles.input}
         underlineColorAndroid="transparent"
         placeholder="Nhập tin nhắn"
         placeholderTextColor="#666"
         autoCapitalize="none"
-        value={message}
-        onChangeText={(value) => onChange(value)}
+        value={txtMsg}
+        // onChangeText={(value) => onChange(value)}
       />
       <TouchableOpacity onPress={onPress} style={styles.sendMessageButton}>
         {loading ? (
@@ -37,6 +39,7 @@ const styles = StyleSheet.create({
     height: 50,
     paddingHorizontal: 10,
     paddingBottom: 10,
+    backgroundColor:'white',
   },
   input: {
     height: 50,

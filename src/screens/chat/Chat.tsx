@@ -1,42 +1,47 @@
 import * as React from 'react';
-import { ChatListItem, ContactListItem, HeaderNav } from '@components';
+import { ChatListItem, ContactListItem,ChatUser, HeaderNav } from '@components';
 
 import { useState } from "react";
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList,Text, StyleSheet, View } from 'react-native';
 import chatRoom from '../../data/Users'
 import { chatLogic } from './Chat.Logic';
-import { MENU, NOTIFICATION } from '@assets';
+import { Colors, MENU, NOTIFICATION } from '@assets';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
+// import Colors from '~constants/Colors';
+
 
 
 
 // import { getUser } from './queries';
 
 export const ChatsScreen = (props: any) => {
-  const { AllGroup } = chatLogic(props);
+  const { allUser } = chatLogic(props);
   // const [chatRooms, setChatRooms] = useState(chatRoom);
 
-  console.log('chatRoomschatRooms', AllGroup);
+ 
   return (
     <View style={styles.container}>
       <View style={{height:heightPercentageToDP(10)}}>
         <HeaderNav title="Chat" />
       </View>
-      <FlatList
-        style={{ width: '100%' ,height:'50%'}}
-        keyExtractor={(item: any) => item._id}
-        data={AllGroup}
-        renderItem={({ item }: any) => <ContactListItem user={item} />}
-      />
-    </View>
+      <Text style={styles.status}>Status</Text>
+      <View style={{height:heightPercentageToDP(12), backgroundColor:'white'}}>
+        <ChatListItem data={allUser} />
+      </View>
+      <Text style={styles.status}>Chat</Text>
+      <ChatUser userdata= {allUser}/>
+    </View> 
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
+  status:{
+    fontSize:30,
+    fontWeight:"bold",
+    color: Colors.PURPLE
+  }
 
 });

@@ -25,8 +25,9 @@ export const ButtonLoginLogup = (props: any) => {
 const styles = StyleSheet.create({
   container: {
     width: wp(90),
-    backgroundColor: 'white',
-    marginVertical:hp(2)
+    backgroundColor: Colors.PURPLE,
+    marginVertical:hp(2),
+    borderRadius:wp(2)
   },
   icon: {
     width: wp(8),
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'helvetica-neue-regular',
-    color: 'black',
+    color: Colors.WHITE,
     fontSize: wp(4),
     fontWeight: 'bold',
   },

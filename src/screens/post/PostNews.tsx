@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     StyleSheet,
     ScrollView,
-    SafeAreaView,
+    SafeAreaView, Button
 } from 'react-native';
 import { Camera } from '@components'
 import { FormButton, HeaderNav } from '@components';
@@ -17,8 +17,9 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import { PostLogic } from './Post.Logic';
 import { TextInput } from 'react-native-gesture-handler';
 
+
 export const PostNewsScreen = (props: any) => {
-    const {uploadProfileImage,takePicture,image, cameraLoad,loadCamera, setLoadCamera, dataLocal, getTokent, conten, onPress, posts, getData, onPressSetting, setConten, distPatchPost }: any =
+    const { handleChoosePhoto, photo, takePicture, image, cameraLoad, loadCamera, setLoadCamera, dataLocal, getTokent, conten, onPress, posts, getData, onPressSetting, setConten, distPatchPost }: any =
         PostLogic(props);
 
 
@@ -30,64 +31,64 @@ export const PostNewsScreen = (props: any) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-            {loadCamera ? <Camera takePicture={takePicture}/> : (<ScrollView
-                style={styles.container}
-                showsVerticalScrollIndicator={false}>
-                <HeaderNav
-                    setMyScreen={onPress}
-                    title="Post news"
-                    imgMenu={BACK}
-                    onPressProfile={onPressSetting}
-                />
-                <Image style={styles.userImg} source={{ uri: dataLocal?.image }} />
-                <Text style={styles.userName}>{dataLocal?.name} </Text>
-                <View
-                    style={{
-                        backgroundColor: Colors.WHITE,
-                        borderBottomColor: '#000000',
-                        borderBottomWidth: 1,
-                    }}>
-                    <UselessTextInput
-                        multiline
-                        plachodel='Ban dang nghi gi'
-                        numberOfLines={6}
-                        onChangeText={(text: any) => setConten(text)}
-                        value={conten}
+            {loadCamera
+                ? <Camera takePicture={takePicture} />
+                : (<ScrollView
+                    style={styles.container}
+                    showsVerticalScrollIndicator={false}>
+                    <HeaderNav
+                        setMyScreen={onPress}
+                        title="Post news"
+                        imgMenu={BACK}
+                        onPressProfile={onPressSetting}
                     />
-                </View>
-                <View style={{width:'100%',height:300}}>
-                    <Image style={{width:'100%',height:'100%'}} source={{uri:image}}/>
-                </View>
-
-                <View style={styles.userBtnWrapper}>
-                    <TouchableOpacity style={styles.userBtn} onPress={() => distPatchPost(getTokent, conten, image)}>
-                        <Image
-                            style={{ width: wp(5), height: wp(5), marginHorizontal: wp(1) }}
-                            source={CHATLOVE}
+                    <View
+                        style={{
+                            backgroundColor: Colors.WHITE,
+                            borderBottomColor: '#000000',
+                            borderBottomWidth: 1,
+                        }}>
+                        <UselessTextInput
+                            multiline
+                            plachodel='Ban dang nghi gi'
+                            numberOfLines={6}
+                            onChangeText={(text: any) => setConten(text)}
+                            value={conten}
                         />
-                        <Text style={styles.userBtnTxt}>Đăng Post</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.userBtnWrapper}>
-                    <TouchableOpacity style={styles.userBtn} onPress={() => setLoadCamera(true)}>
-                        <Image
-                            style={{ width: wp(5), height: wp(5), marginHorizontal: wp(1) }}
-                            source={CHATLOVE}
-                        />
-                        <Text style={styles.userBtnTxt}>Camera</Text>
-                    </TouchableOpacity>
-                </View>
 
+                    </View>
+                    {photo ? photo?.map((item: any) => {
+                        return <View style={{ alignItems: 'center', marginVertical: 10 }}><Image source={{ uri: item?.uri }} style={{ width: 300, height: 200, borderRadius: 12 }} /></View>
+                    }) : null}
+                    <View style={styles.userBtnWrapper}>
 
+                        <TouchableOpacity style={styles.userBtn} onPress={() => setLoadCamera(true)}>
+                            <Image
+                                style={{ width: wp(5), height: wp(5), marginHorizontal: wp(1) }}
+                                source={CHATLOVE}
+                            />
+                            <Text style={styles.userBtnTxt}>Camera</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.userBtn} onPress={handleChoosePhoto}>
+                            <Image
+                                style={{ width: wp(5), height: wp(5), marginHorizontal: wp(1) }}
+                                source={CHATLOVE}
+                            />
+                            <Text style={styles.userBtnTxt}>Chọn ảnh</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.userBtnWrapper}>
+                        <TouchableOpacity style={{ ...styles.userBtn }} onPress={() => distPatchPost(getTokent, conten)}>
+                            <Image
+                                style={{ width: wp(5), height: wp(5), marginHorizontal: wp(1) }}
+                                source={CHATLOVE}
+                            />
+                            <Text style={styles.userBtnTxt}>Đăng Post</Text>
+                        </TouchableOpacity>
+                    </View>
 
-
-            </ScrollView>)}
-
+                </ScrollView>)}
         </SafeAreaView>
-
-
-
-
     );
 };
 
@@ -135,6 +136,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     userBtnWrapper: {
+        marginVertical: 10,
         flexDirection: 'row',
         justifyContent: 'center',
         width: '100%',
@@ -142,7 +144,7 @@ const styles = StyleSheet.create({
     },
     userBtn: {
         flexDirection: 'row',
-        width: wp(40),
+        width: wp(30),
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.BLUE,
@@ -152,7 +154,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
     },
     userBtnTxt: {
-        fontSize: 20,
+        fontSize: 15,
         textAlign: 'center',
         fontWeight: 'bold',
         color: Colors.WHITE,

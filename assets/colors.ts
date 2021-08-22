@@ -1,6 +1,6 @@
 export const Colors = {
-  PURPLE: 'rgb(132,37,114)',
+  PURPLE: '#f7a535',
   WHITE: '#FFFFFF',
   OVERLAY: 'rgba(51,51,51,0.4)',
-  BLUE: "#3599D0"
+  BLUE: '#f7a535'
 };

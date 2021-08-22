@@ -1,13 +1,16 @@
-import { Colors, MENU, FACEBOOK, NOTIFICATION, USER } from '@assets'
+import { Colors, MENU, FACEBOOK, NOTIFICATION, USER, STUDYROUTE } from '@assets'
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { ScrollView, Image, StyleSheet, Text, View, Platform, TouchableOpacity } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 
 export const CardView = (props: any) => {
-    const { title, img, imgMenu, imgNotification, onPressProfile, setMyScreen, imgSetting, onGoBack } = props;
+    const { title } = props;
+    const navigation = useNavigation()
     return (
-        <TouchableOpacity style={styles.header}>
-            <Text></Text>
+        <TouchableOpacity style={styles.header} onPress={()=>navigation.navigate('studyroute',title)}>
+            <Image source={STUDYROUTE} style={styles.image} />
+            <Text style={styles.text}>{title}</Text>
         </TouchableOpacity>
     )
 }
@@ -24,9 +27,11 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
     },
     image: {
-        width: wp(6),
-        height: wp(6),
-        margin: 10,
+        width: wp(90),
+        height: wp(40),
+        margin: wp(5),
+        resizeMode: 'cover',
+        borderRadius: wp(4)
     },
     imageAvatar: {
         width: wp(7),
@@ -38,7 +43,13 @@ const styles = StyleSheet.create({
     , text: {
         fontSize: 18,
         fontWeight: 'bold',
-        margin: 10,
+        top: hp(10),
+        left: wp(1),
+        backgroundColor: Colors.BLUE,
+        color: 'white',
         alignItems: 'center',
+        position: 'absolute',
+        borderRadius: 10,
+        padding:10,
     }
 })

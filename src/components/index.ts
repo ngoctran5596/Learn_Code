@@ -8,3 +8,4 @@ export * from './post';
 export * from './form';
 export * from './Camera';
 export * from './chat';
+export * from './card';

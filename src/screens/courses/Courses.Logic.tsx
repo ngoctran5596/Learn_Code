@@ -5,7 +5,8 @@ import { coursesActions, } from '../../shared-store/redux';
 
 export const CoursesLogic = (props: any) => {
   const dispatch = useDispatch();
-  const id = props.route.params;
+  const id = props.route.params.id;
+  const name = props.route.params.name;
   const course = useSelector((state: any) =>state?.courses?.coursesDetail);
   const [screen, setScreen] = React.useState(0);
 
@@ -20,7 +21,7 @@ export const CoursesLogic = (props: any) => {
 
   console.log('dataLocal,dataLocal', props.route.params);
   return {
-     screen, setScreen,
+     screen, setScreen,name,
      course,setMyScreen
   };
 };

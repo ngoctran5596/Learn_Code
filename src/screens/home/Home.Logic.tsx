@@ -45,8 +45,8 @@ export const HomeLogic = (props: any) => {
       .catch(err => console.log('ERRRRRRRRR', err));
   };
 
-  const onPress = (id: any) => {
-    props.navigation.navigate('CourseDetail', {id});
+  const onPress = (id: any,name:any) => {
+    props.navigation.navigate('CourseDetail', {id,name});
   };
   const onPressProfile = () => {
     props.navigation.navigate('Profile', {user: user});
@@ -54,11 +54,6 @@ export const HomeLogic = (props: any) => {
   const onPressPostNews = () => {
     props.navigation.navigate('PostNews');
   };
-
-  React.useEffect(() => {
-    dispatch(coursesActions.getAllCourses(''));
-    dispatch(postActions.getAllPost(''));
-  }, []);
 
   const onRefresh = () => {
     setIsFetching(true);
@@ -73,7 +68,7 @@ export const HomeLogic = (props: any) => {
   const setMyScreen = (screen: any) => {
     setScreen(screen);
   };
-
+console.log("DTATAAPOST",dataPost);
   return {
     screen,
     setScreen,

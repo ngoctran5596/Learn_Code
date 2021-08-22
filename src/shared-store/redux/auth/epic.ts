@@ -1,7 +1,6 @@
 import {userActions, typess} from './action';
 import {ofType} from 'redux-observable';
 import {mergeMap} from 'rxjs/operators';
-import axios from 'axios';
 import {$axios} from '@api';
 
 export const getUser = ($action: any) => {

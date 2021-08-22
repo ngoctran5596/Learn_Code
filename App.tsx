@@ -6,10 +6,12 @@ import { MyApp } from '@navigations';
 import { store, persistor } from './src/shared-store/redux'
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider as PaperProvider } from 'react-native-paper';
+  
 
 
 
 export const App: React.FC = () => {
+  
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

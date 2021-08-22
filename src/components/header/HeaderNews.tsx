@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     color: '#ffffffff',
     width: '100%',
     padding: 10,
-    backgroundColor: '#444444',
+    backgroundColor: Colors.PURPLE,
     bottom: 0,
     left: 0,
   },

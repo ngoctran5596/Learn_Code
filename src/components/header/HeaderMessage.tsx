@@ -1,24 +1,27 @@
-import { Colors, MENU, FACEBOOK, NOTIFICATION, USER } from '@assets'
+import { Colors, MENU, FACEBOOK, NOTIFICATION, USER,BACK, CALL, VIDEOCALL } from '@assets'
 import React from 'react'
 import { ScrollView, Image, StyleSheet, Text, View, Platform, TouchableOpacity } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 
-export const HeaderNav = (props: any) => {
-    const { title, img, imgMenu, imgNotification, onPressProfile, setMyScreen, imgSetting, onGoBack } = props;
+export const HeaderMessage = (props: any) => {
+    const { nameUser, imageUser, setMyScreen, onGoBack } = props;
     return (
         <View style={styles.container}>
             <View style={{ paddingBottom: 20 }}>
                 <View style={styles.header}>
                     <TouchableOpacity onPress={setMyScreen}>
-                        {imgMenu ? <Image style={styles.image} source={imgMenu} /> : null}
+                        <Image style={styles.image} source={BACK} />
                     </TouchableOpacity>
-                    <Text style={styles.text}>{title}</Text>
+                    <TouchableOpacity onPress={()=>{}}>
+                        <Image style={styles.imageAvatar} source={{uri:imageUser}} />
+                    </TouchableOpacity>
+                    <Text style={styles.text}>{nameUser}</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity>
-                            {imgNotification ? <Image style={styles.image} source={imgNotification} /> : <Text></Text>}
+                            <Image style={styles.image} source={CALL} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => onPressProfile()}>
-                            {img ? <Image style={styles.imageAvatar} source={{ uri: img }} /> : (<Image style={styles.image} source={imgSetting} />)}
+                        <TouchableOpacity onPress={() => {}}>
+                           <Image style={styles.image} source={VIDEOCALL} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -38,10 +41,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: Colors.WHITE,
-        borderBottomEndRadius: wp(8),
-        borderBottomStartRadius: wp(8),
         elevation: 10,
-        shadowColor:    Colors.PURPLE,
+        shadowColor: '#000',
         shadowOffset: { width: 10, height: 10 },
         shadowOpacity: 0.4,
         shadowRadius: 3,
@@ -50,7 +51,6 @@ const styles = StyleSheet.create({
         width: wp(6),
         height: wp(6),
         margin: 10,
-        color:Colors.PURPLE
     },
     imageAvatar: {
         width: wp(7),
@@ -64,6 +64,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         margin: 10,
         alignItems: 'center',
-        color:Colors.PURPLE
     }
 })

@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    color: 'white',
+    color: Colors.WHITE,
     fontWeight: 'bold',
     fontSize: 40,
     textAlign: 'center',
@@ -64,4 +64,10 @@ export const styles = StyleSheet.create({
     shadowRadius: 3,
     marginVertical:hp(1)
   },
+  logo:{
+    width:wp(20),
+    height:hp(10),
+    borderRadius:wp(2),
+    
+  }
 });

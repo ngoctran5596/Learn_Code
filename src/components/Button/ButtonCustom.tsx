@@ -1,3 +1,4 @@
+import { Colors } from '@assets';
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     height: wp(12),
     width: wp(80),
     alignSelf: 'center',
-    backgroundColor: '#3599D0',
+    backgroundColor: Colors.PURPLE,
     borderRadius: wp(10),
     alignItems: 'center',
     justifyContent: 'center',

@@ -1,7 +1,8 @@
-import { LIKE, MENU, NOTIFICATION } from '@assets';
+import { Colors, LIKE, MENU, NOTIFICATION } from '@assets';
 import {
     ButtonCustom,
     HeaderNav,
+    HeaderNavCP,
     HeaderNews,
     PostComponent,
     TextField,
@@ -19,6 +20,7 @@ import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 
 import { styles } from './style';
+
 
 export const Home = (props: any) => {
     const {
@@ -59,7 +61,7 @@ export const Home = (props: any) => {
     return (
         <View style ={{flex:1}}>
             <View>
-                <HeaderNav
+                <HeaderNavCP
                     imgNotification={NOTIFICATION}
                     imgMenu={MENU}
                     img={user?.image}
@@ -86,7 +88,7 @@ export const Home = (props: any) => {
                                 <HeaderNews
                                     title={item.name}
                                     image={item.image}
-                                    onClick={() => onPress(item._id)}
+                                    onClick={() => onPress(item._id,item.name)}
                                 />
                             );
                         }}
@@ -97,25 +99,27 @@ export const Home = (props: any) => {
                         keyExtractor={(item: any, index: any) => index.toString()}
                         data={dataPost}
                         renderItem={({ item }) => {
-                            let idLike = item?.like?.userId?._id;
-                            let idUser = user?.user?.id;
-                            if(idLike === idUser){
-                                setLike(true);
-                            }else{
-                                setLike(false)
-                            }
+                            // let idLike = item?.like?.userId?._id;
+                            // let idUser = user?.user?.id;
+                            // // if(idLike === idUser){
+                            // //     setLike(true);
+                            // // }else{
+                                
+                            // // }
+                            // idLike === idUser ?setLike(true):setLike(false)
                             return (
                                 <PostComponent
-                                    onclickComment={() => onclickComment(item._id)}
-                                    classa={item.typeClassId?.name}
-                                    description={item.description}
-                                    title={item.title}
-                                    image={item.image}
+                                    onclickComment={() => onclickComment(item?._id)}
+                                    classa={item?.typeClassId?.name}
+                                    description={item?.description}
+                                    nameUser={item?.userId?.name}
+                                    imagePost={item?.image}
+                                    image={item?.userId?.image}
                                     imageLike={LIKE}
                                     like={Like}
-                                    numberComment={item.comment.length}
-                                    numberLike={item.like.length}
-                                    content={item.comment}
+                                    numberComment={item?.comment?.length}
+                                    numberLike={item?.like?.length}
+                                    content={item?.comment}
                                 />
                             );
                         }}

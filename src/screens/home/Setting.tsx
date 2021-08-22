@@ -11,7 +11,7 @@ import {
 
 
 import { ButtonLoginLogup, HeaderNav } from '@components';
-import { HomeLogic } from './Home.Logic';
+
 import { BACK, CHAT, CHATLOVE, Colors, DELETE, LENGUAGE, LOGOUT, MENUUSER, NOTIFICATIONSETTING, RENAME, REPOST, RESETPASS, SETTING, USER } from '@assets';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { ProfileLogic } from '../profile/Profile.Logic';

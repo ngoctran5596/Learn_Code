@@ -1,8 +1,25 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React from 'react';
-import {$axios} from '@api';
+// import { $axios } from '@api';
 import { useDispatch, useSelector } from 'react-redux';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { Alert, Platform } from 'react-native';
+import { postActions } from '../../shared-store/redux';
+
+const createFormData = (photo: any, body: any = {}) => {
+    const data = new FormData();
+    data.append('imagePost', {
+        name: photo[0].fileName,
+        type: photo[0].type,
+        uri: Platform.OS === 'ios' ? photo[0].uri.replace('file://', '') : photo[0].uri,
+    });
+    Object.keys(body).forEach((key: any) => {
+        data.append(key, body[key]);
+    });
+
+    return data;
+};
 
 
 export const PostLogic = (props: any) => {
@@ -10,44 +27,83 @@ export const PostLogic = (props: any) => {
     const [posts, setPosts] = React.useState('');
     const [loadCamera, setLoadCamera] = React.useState(false);
     const [conten, setConten] = React.useState('');
-    const [dataLocal, setDataLocal] = React.useState('')
-    const [image, setImage] = React.useState()
-    const getTokent = useSelector((state: any) => state?.auth.user.accessToken);
+    const [dataLocal, setDataLocal] = React.useState('');
+    const [image, setImage] = React.useState();
+    const [photo, setPhoto] = React.useState(null);
+    const getTokent = useSelector((state: any) => state?.auth.user.user.id);
 
     const takePicture = async function (camera: any) {
-
         const options = { quality: 0.5, base64: true };
         const data = await camera.takePictureAsync(options);
-        setImage(data.uri);
-        //  eslint-disable-next-line
-        console.log(data.uri);
+        console.log(data);
+        setImage(data);
         setLoadCamera(false);
     };
 
-    const uploadProfileImage = async () => {
-        const formData = new FormData();
-        formData.append('imagePost', {
-            name: new Date() + '_profile',
-            uri: image,
-            type: 'image/jpg',
-        });
 
-        try {
-            const res = await $axios.config.post('/postImage', formData, {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'multipart/form-data',
-                },
+    const handleChoosePhoto = () => {
+        launchImageLibrary({ noData: true }, (response: any) => {
+            console.log("response", response);
+            if (response) {
+                setPhoto(response.assets);
+            }
+        });
+    };
+
+    const distPatchPost = async (id: any, descrip: any) => {
+
+        if (photo) {
+            const data = createFormData(photo, { userId: id, description: descrip });
+            fetch(`http://192.168.1.13:3000/postImage`, {
+                method: 'POST',
+                body: createFormData(photo, { userId: id, description: descrip }),
+            })
+                .then((response) => response.json())
+                .then((response) => {
+                    dispatch(postActions.getAllPost(''));
+                    props.navigation.navigate('MyHome');
+                    console.log('response', response);
+                })
+                .catch((error) => {
+                    console.log('error', error);
+                });
+        } else {
+
+            const formData = new FormData();
+            formData.append('userId', id);
+            formData.append('description', descrip);
+
+            const response = await axios({
+                method: 'post',
+                url: 'http://192.168.1.13:3000/postImage',
+                data: formData
             });
 
-            if (res.data.success) {
-               
-                console.log('Ok roi ok');
+            if (response) {
+                dispatch(postActions.getAllPost(''));
+                props.navigation.navigate('MyHome');
+            } else {
+                Alert.alert('Lỗi bài đăng');
+                props.navigation.navigate('MyHome');
             }
-        } catch (error) {
-            console.log(error.message);
+
+            // fetch(`http://192.168.1.13:3000/postImage`, {
+            //     method: 'POST',
+            //     body: JSON.stringify(data),
+            // })
+            //     .then((response) => response.json())
+            //     .then((response) => {
+            //         dispatch(postActions.getAllPost(''));
+            //         props.navigation.navigate('MyHome');
+            //         console.log('response', response);
+            //     })
+            //     .catch((error) => {
+            //         console.log('error', error);
+            //     });
         }
+
     };
+
 
     const getData = async () => {
         try {
@@ -71,33 +127,10 @@ export const PostLogic = (props: any) => {
     const cameraLoad = () => {
         setLoadCamera(false);
     };
-    const distPatchPost = async (userId: any, conten: any, image: any) => {
-        const formData = new FormData();
-        formData.append('imagePost', {
-            name: new Date() + '_profile',
-            uri: image,
-            type: 'image/jpg',
-        });
-        formData.append('description', conten);
-        formData.append('userId', userId);
-        console.log(formData);
-        const result = await axios.post('http://localhost:3000/postImage', formData,{
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'multipart/form-data',
-            },
-        });
 
-        if (result) {
-            console.log(result);
-            props.navigation.goBack();
-        } else {
-            return
-        }
-    }
-    console.log('dataLocal,dataLocal', dataLocal);
-    return {uploadProfileImage,
-        setLoadCamera, cameraLoad,
+    return {
+        // uploadProfileImage,
+        setLoadCamera, cameraLoad, handleChoosePhoto, photo,
         takePicture, image,
         dataLocal, onPress, getTokent, getData, onPressSetting, posts, distPatchPost, setConten, conten, loadCamera
     }

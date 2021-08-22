@@ -17,7 +17,7 @@ import {
 export const PostComponent = (props: any) => {
     const [isLoadComment, setIsLoadComment] = React.useState(false);
     const {
-        title,
+        nameUser,
         image,
         imageLike,
         classa,
@@ -25,23 +25,24 @@ export const PostComponent = (props: any) => {
         description,
         numberComment,
         content,
+        imagePost,
         onClickLike,
         numberLike, like
     } = props;
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'row' ,...styles.shadow}}>
                     <Image source={{ uri: image }} style={styles.avatar} />
                     <Text style={styles.text}>
-                        {title} {'>'} {classa}{' '}
+                        {nameUser} {'>'} {classa}{' '}
                     </Text>
                 </View>
                 <View>
                     <Text numberOfLines={1}>{description}</Text>
                 </View>
-                {image ? (<View style={{ width: '100%', height: hp(20), marginVertical: hp(2) }}>
-                    <Image source={{ uri: image }} style={styles.img} />
+                {imagePost ? (<View style={{ width: '100%', height: hp(30), marginVertical: hp(2) }}>
+                    <Image source={{ uri: imagePost }} style={styles.img} />
                 </View>) : null}
                 <View
                     style={{
@@ -130,13 +131,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: Colors.WHITE,
         elevation: 10,
-        shadowColor: '#000',
+        shadowColor: Colors.PURPLE,
         shadowOffset: { width: 10, height: 10 },
         shadowOpacity: 0.4,
         shadowRadius: 3,
     },
 
-    img: { width: '100%', height: '100%', resizeMode: 'cover', borderRadius: 20 },
+    img: { width: '100%', height: '100%', resizeMode:"cover", borderRadius: 20 },
     icon: {
         width: wp(5),
         height: wp(5),
@@ -171,5 +172,14 @@ const styles = StyleSheet.create({
         height: hp(5),
         borderRadius: wp(2),
         borderWidth: 0.5,
-    },
+    }, shadow: {
+        shadowColor: Colors.PURPLE,
+        shadowOffset: {
+          width: 0,
+          height: 10,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.5,
+        elevation: 5,
+      },
 });

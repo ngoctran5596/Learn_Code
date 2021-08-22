@@ -6,10 +6,11 @@ import {$axios} from '@api';
 
 export const createPostEpic = ($action: any) => {
   return $action.pipe(
-    ofType(typesPost.GET_ALL_POST),
+    ofType(typesPost.CREATE_POST),
     mergeMap((act: any) => {
       const post = {
-        description: act.payload.title,
+        userId:act.payload.userId,
+        description: act.payload.discriptions,
       };
       const headers = {
         Authorization: 'Bearer ' + act.payload.accessTokent,
@@ -19,10 +20,10 @@ export const createPostEpic = ($action: any) => {
         .post('post', post, {headers})
         .then((rs: any) => {
           const {data} = rs;
-          return postActions.getAllPostSuccess(data);
+          return postActions.createPostSuccess(data);
         })
         .catch((err: any) => {
-          return postActions.getAllPostFailure(err);
+          return postActions.createPostFailure(err);
         });
     }),
   );
@@ -73,7 +74,6 @@ export const likePostEpic = ($action: any) => {
       return $axios.config
         .post(`newsfeed/${act.payload.idPost}`, act.payload.data)
         .then((rs: any) => {
-          console.log('rsrsrsrsrsrsrsrs', rs.data);
           const {data} = rs;
           return postActions.likePostSuccess(data);
         })

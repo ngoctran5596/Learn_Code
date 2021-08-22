@@ -16,9 +16,10 @@ export const styles = StyleSheet.create({
   text: {
     fontWeight: 'bold',
     fontSize:20 ,
+    color:'white',
     padding: 10,
     marginVertical:hp(1),
-    backgroundColor:Colors.WHITE
+    backgroundColor:'#f7a535'
   },
   row: {
     flexDirection: 'row',

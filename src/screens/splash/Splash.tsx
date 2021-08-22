@@ -18,7 +18,7 @@ export const Splash = (props: any) => {
       
     }, [])
     return (
-        <ImageBackground source={BACKGROUND} style={{ flex: 1 }}>
+        <ImageBackground source={BACKGROUND} resizeMode="cover" style={{ flex: 1 }}>
 
         </ImageBackground>
     )

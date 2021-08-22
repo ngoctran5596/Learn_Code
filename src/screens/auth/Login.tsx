@@ -1,10 +1,11 @@
-import { BACKGROUND, USER } from '@assets';
+import { BACKGROUND, Colors, LOGOT, LOGOUT, USER } from '@assets';
 import { ButtonCustom, ButtonLoginLogup } from '@components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, { useState } from 'react';
 import {
   Alert,
+  Image,
   ImageBackground,
   Text,
   TouchableOpacity,
@@ -72,8 +73,17 @@ export const Login = (props: any) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={BACKGROUND} style={styles.image}>
+      <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.image}>
         <Text style={styles.text}>Welcome</Text>
+
+        {/* <View style={{
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+
+          <Image source={LOGOT} style={styles.logo} />
+        </View> */}
+
         <View style={styles.row}>
           <TouchableOpacity
             style={{
@@ -82,7 +92,7 @@ export const Login = (props: any) => {
               borderTopStartRadius: 20,
             }}
             onPress={() => selectScreen('login')}>
-            <Text style={{ ...styles.text, fontSize: 20, color: 'black' }}>
+            <Text style={{ ...styles.text, fontSize: 20, color:color.register }}>
               Login
             </Text>
           </TouchableOpacity>
@@ -96,7 +106,7 @@ export const Login = (props: any) => {
               check;
               selectScreen('register');
             }}>
-            <Text style={{ ...styles.text, fontSize: 20, color: 'black' }}>
+            <Text style={{ ...styles.text, fontSize: 20, color: color.login }}>
               Register
             </Text>
           </TouchableOpacity>
@@ -106,7 +116,6 @@ export const Login = (props: any) => {
             backgroundColor: '#EEEEEE',
             padding: 10,
             opacity: 0.8,
-            borderWidth: 0.1,
             borderRadius: 10,
             marginHorizontal: 10,
           }}>
@@ -119,7 +128,7 @@ export const Login = (props: any) => {
                 style={styles.input}
                 onChangeText={(text: any) => setName(text)}
               />
-              <Text style={{color:'red'}}>
+              <Text style={{ color: 'red' }}>
                 {errorName ? errorName : null}
               </Text>
             </View>
@@ -133,7 +142,7 @@ export const Login = (props: any) => {
               onChangeText={(text: any) => setEmail(text)}
             />
 
-            <Text style={{color:'red'}}>{errorEmail ? errorEmail : null}</Text>
+            <Text style={{ color: 'red' }}>{errorEmail ? errorEmail : null}</Text>
           </View>
           <View>
             <TextInput
@@ -144,7 +153,7 @@ export const Login = (props: any) => {
               onChangeText={(text: any) => setPassword(text)}
             />
 
-            <Text style={{color:'red'}}>{errorPass ? errorPass : null}</Text>
+            <Text style={{ color: 'red' }}>{errorPass ? errorPass : null}</Text>
           </View>
 
           {!(isloading === 'register') ? null : (

@@ -20,7 +20,7 @@ export const PostNews = (props: any) => {
 const styles = StyleSheet.create({
   container: {
     width: wp(100),
-    backgroundColor: 'white',
+    backgroundColor: '#f7a535',
     marginTop:hp(11)
   },
   icon: {
@@ -29,10 +29,11 @@ const styles = StyleSheet.create({
     borderRadius: wp(8),
     marginRight: wp(4),
   },
-  text: {borderWidth:0.3,borderRadius:10,padding:10,borderColor:Colors.BLUE,width:'85%',color:Colors.BLUE,},
+  text: {borderRadius:10,backgroundColor:'white',padding:10,borderColor:Colors.BLUE,width:'85%',color:Colors.BLUE,},
   rowCol: {
     paddingVertical: wp(2),
     flexDirection: 'row',
     marginHorizontal: wp(2),
+   
   },
 });

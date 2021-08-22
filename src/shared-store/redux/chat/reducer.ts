@@ -6,7 +6,7 @@ const initialState = {
 export const ChatReducer = (state = initialState, actions: any) => {
   let {payload} = actions;
   switch (actions.type) {
-    case typesActionChat.CHAT_USERLIST:
+    case typesActionChat.ALL_USER:
       return {
         ...state,
         activeUser:payload

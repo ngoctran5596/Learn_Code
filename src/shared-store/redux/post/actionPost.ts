@@ -3,6 +3,9 @@ export const typesPost = {
     GET_ALL_POST : 'GET_ALL_POST',
     GET_ALL_POST_SUCCESS : 'GET_ALL_POST_SUCCESS',
     GET_ALL_POST_FAILURE : 'GET_ALL_POST_FAILURE',
+    CREATE_POST : 'CREATE_POST',
+    CREATE_POST_SUCCESS : 'CREATE_POST_SUCCESS',
+    CREATE_POST_FAILURE : 'CREATE_POST_FAILURE',
     COMMENT_POST : 'COMMENT_POSST',
     COMMENT_POST_SUCCESS : 'COMMENT_POST_SUCCESS',
     COMMENT_POST_FAILURE : 'COMMENT_POST_FAILURE',
@@ -14,6 +17,9 @@ export const typesPost = {
 const action = (type:string,payload:any)=>({type,payload});
 
 export const postActions ={
+    createPost : (payload:any)=>action(typesPost.CREATE_POST,payload),
+    createPostSuccess: (payload:any)=>action(typesPost.CREATE_POST_SUCCESS,payload),
+    createPostFailure: (payload:any)=> action(typesPost.CREATE_POST_FAILURE,payload),
     getAllPost : (payload:any)=>action(typesPost.GET_ALL_POST,payload),
     getAllPostSuccess: (payload:any)=>action(typesPost.GET_ALL_POST_SUCCESS,payload),
     getAllPostFailure: (payload:any)=> action(typesPost.GET_ALL_POST_FAILURE,payload),
