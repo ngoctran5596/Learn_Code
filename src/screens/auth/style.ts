@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
     fontFamily: Font.helveticaneue_regular,
   },
   card: {
-    marginHorizontal:wp(2),
+    marginHorizontal: wp(2),
     padding: 10,
     backgroundColor: Colors.WHITE,
     borderRadius: wp(8),
@@ -62,12 +62,53 @@ export const styles = StyleSheet.create({
     shadowOffset: {width: 10, height: 10},
     shadowOpacity: 0.4,
     shadowRadius: 3,
-    marginVertical:hp(1)
+    marginVertical: hp(1),
   },
-  logo:{
-    width:wp(20),
-    height:hp(10),
-    borderRadius:wp(2),
-    
-  }
+  logo: {
+    width: wp(20),
+    height: hp(10),
+    borderRadius: wp(2),
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 5,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 15,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: Colors.PURPLE,
+    marginRight: 10,
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
 });

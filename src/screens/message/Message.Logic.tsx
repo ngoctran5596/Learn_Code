@@ -87,13 +87,6 @@ export const MessageLogic = (props: any) => {
     }
 
 
-    const LoadRoomMsgs = () => {
-        new Promise((res)=>{
-            res();
-        }).then(()=>{
-            const activeRoomMsgs = message;
-        })
-    }
     
     const getdispatchMsg = ({ _id, roomID, senderEmail, recieverEmail, composeMsg: composeMsgs }: any) => {
         const activeUser = userStore?.email;
@@ -113,15 +106,13 @@ export const MessageLogic = (props: any) => {
             return setMessage([...message, msg]);
         }
     }
-    // console.log("messagemessagemessagemessage",message);
-
+    
     React.useEffect(() => {
         const { _id, email, name } = routerParams;
         new Promise((res) => {
             uniqueUserChat({ _id, email, name });
             setTimeout(res, 2000);
         }).then(() => {
-            LoadRoomMsgs();
         });
     }, [])
 

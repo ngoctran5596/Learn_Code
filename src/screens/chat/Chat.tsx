@@ -3,7 +3,7 @@ import { ChatListItem, ContactListItem,ChatUser, HeaderNav } from '@components';
 
 import { useState } from "react";
 import { FlatList,Text, StyleSheet, View } from 'react-native';
-import chatRoom from '../../data/Users'
+// import chatRoom from '../../data/Users'
 import { chatLogic } from './Chat.Logic';
 import { Colors, MENU, NOTIFICATION } from '@assets';
 import { heightPercentageToDP } from 'react-native-responsive-screen';

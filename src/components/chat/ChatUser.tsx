@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { USER } from '@assets'
 import { ActivityIndicator } from 'react-native-paper';
 import { FlatList } from 'react-native-gesture-handler';
+import { socketURL } from '@api';
 
 
 export const UserList = ({ _id, name, msg,image, time, email }: any) => {
@@ -20,12 +21,11 @@ export const UserList = ({ _id, name, msg,image, time, email }: any) => {
                     paddingVertical: 5,
                     marginRight: 2,
                     justifyContent: 'center',
-                    // position: 'relative',
                     height: 60,
                     width: 60,
                     alignItems: 'center',
                 }}>
-                <Image source={{uri:image}} style={{ width: '100%', height: "100%",borderRadius:120, resizeMode: 'contain' }} />
+                <Image source={{uri:image?.replace('http://localhost:3000', socketURL)}} style={{ width: 60, height: 60,borderRadius:30, resizeMode: 'cover' }} />
             </View>
             <View
                 style={{
@@ -61,7 +61,7 @@ export const ChatUser = ( props:any) => {
                             }}
                             showsVerticalScrollIndicator={false}
                             numColumns={1}
-                            keyExtractor={(item, index) => index.toString()}
+                            keyExtractor={(item:any, index:any) => index.toString()}
                             data={props.userdata}
                             renderItem={({ item: { _id, name, msg,image, time, email } }) => {
                                 return (

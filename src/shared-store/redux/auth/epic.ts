@@ -7,14 +7,16 @@ export const getUser = ($action: any) => {
   return $action.pipe(
     ofType(typess.GET_USER),
     mergeMap((act: any) => {
+      console.log('getUsergetUser',act)
       return $axios.config
-        .get('user/userById', {
+        .get('user/infor/v3', {
           headers: {
-            AutAuthorization: 'Bearer ' + act.payload,
+            Authorization: act.payload,
           },
         })
         .then((rs: any) => {
           const {data} = rs;
+          
           return userActions.getUserSuccess(data);
         })
         .catch((err: any) => {

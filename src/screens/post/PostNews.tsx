@@ -16,18 +16,14 @@ import { BACK, CHAT, CHATLOVE, Colors, MENUUSER, SETTING } from '@assets';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { PostLogic } from './Post.Logic';
 import { TextInput } from 'react-native-gesture-handler';
+import { Picker } from '@react-native-picker/picker';
 
 
 export const PostNewsScreen = (props: any) => {
-    const { handleChoosePhoto, photo, takePicture, image, cameraLoad, loadCamera, setLoadCamera, dataLocal, getTokent, conten, onPress, posts, getData, onPressSetting, setConten, distPatchPost }: any =
+    const { pickerRef,selectedLanguage, setSelectedLanguage,handleChoosePhoto,dataCourses, photo, takePicture, image, cameraLoad, loadCamera, setLoadCamera, dataLocal, getTokent, conten, onPress, posts, getData, onPressSetting, setConten, distPatchPost }: any =
         PostLogic(props);
+   
 
-
-    useEffect(() => {
-        getData();
-    }, []);
-
-    const handleDelete = () => { };
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -77,6 +73,23 @@ export const PostNewsScreen = (props: any) => {
                             <Text style={styles.userBtnTxt}>Chọn ảnh</Text>
                         </TouchableOpacity>
                     </View>
+                    <Picker
+                        
+                        ref={pickerRef}
+                        selectedValue={selectedLanguage}
+                        onValueChange={(itemValue, itemIndex) =>
+                            setSelectedLanguage(itemValue)
+                        }>
+                             <Picker.Item label="Chọn lớp bạn muốn đăng" value="" />
+                        {dataCourses.map((item: any, index: any) => {
+                            console.log('item',item,'index',index);
+                            return (
+                                
+                                <Picker.Item label={item.name} value={item._id} key={item._id} />
+                            )
+
+                        })}
+                    </Picker>
                     <View style={styles.userBtnWrapper}>
                         <TouchableOpacity style={{ ...styles.userBtn }} onPress={() => distPatchPost(getTokent, conten)}>
                             <Image

@@ -5,7 +5,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { Alert, Platform } from 'react-native';
-import { postActions } from '../../shared-store/redux';
+import { coursesActions, postActions } from '../../shared-store/redux';
+// import {userSelectorApp } from '@screens';
 
 const createFormData = (photo: any, body: any = {}) => {
     const data = new FormData();
@@ -23,7 +24,10 @@ const createFormData = (photo: any, body: any = {}) => {
 
 
 export const PostLogic = (props: any) => {
+
     const dispatch = useDispatch();
+    const dataCourses = useSelector((state: any) => state?.courses?.coursesById);
+    const userSelectorApp = useSelector((state: any) => state?.auth?.user?.user);
     const [posts, setPosts] = React.useState('');
     const [loadCamera, setLoadCamera] = React.useState(false);
     const [conten, setConten] = React.useState('');
@@ -31,6 +35,8 @@ export const PostLogic = (props: any) => {
     const [image, setImage] = React.useState();
     const [photo, setPhoto] = React.useState(null);
     const getTokent = useSelector((state: any) => state?.auth.user.user.id);
+    const [selectedLanguage, setSelectedLanguage] = React.useState();
+    const pickerRef = React.useRef();
 
     const takePicture = async function (camera: any) {
         const options = { quality: 0.5, base64: true };
@@ -39,6 +45,12 @@ export const PostLogic = (props: any) => {
         setImage(data);
         setLoadCamera(false);
     };
+
+
+    React.useEffect(() => {
+        dispatch(coursesActions.getCourseByUserId(userSelectorApp.id))
+    }, [])
+
 
 
     const handleChoosePhoto = () => {
@@ -52,11 +64,15 @@ export const PostLogic = (props: any) => {
 
     const distPatchPost = async (id: any, descrip: any) => {
 
+        if(!id || !descrip || !selectedLanguage){
+            return Alert.alert('Đừng để trống bạn ơi');
+        }
+
         if (photo) {
             const data = createFormData(photo, { userId: id, description: descrip });
-            fetch(`http://192.168.1.13:3000/postImage`, {
+            fetch(`http://192.168.43.215:3000/postImage`, {
                 method: 'POST',
-                body: createFormData(photo, { userId: id, description: descrip }),
+                body: createFormData(photo, { userId: id, description: descrip ,typeClassId:selectedLanguage}),
             })
                 .then((response) => response.json())
                 .then((response) => {
@@ -72,10 +88,11 @@ export const PostLogic = (props: any) => {
             const formData = new FormData();
             formData.append('userId', id);
             formData.append('description', descrip);
+            formData.append('typeClassId', selectedLanguage);
 
             const response = await axios({
                 method: 'post',
-                url: 'http://192.168.1.13:3000/postImage',
+                url: 'http://192.168.43.215:3000/postImage',
                 data: formData
             });
 
@@ -87,19 +104,7 @@ export const PostLogic = (props: any) => {
                 props.navigation.navigate('MyHome');
             }
 
-            // fetch(`http://192.168.1.13:3000/postImage`, {
-            //     method: 'POST',
-            //     body: JSON.stringify(data),
-            // })
-            //     .then((response) => response.json())
-            //     .then((response) => {
-            //         dispatch(postActions.getAllPost(''));
-            //         props.navigation.navigate('MyHome');
-            //         console.log('response', response);
-            //     })
-            //     .catch((error) => {
-            //         console.log('error', error);
-            //     });
+          
         }
 
     };
@@ -129,9 +134,10 @@ export const PostLogic = (props: any) => {
     };
 
     return {
-        // uploadProfileImage,
+        // uploadProfileImage,dataCourses
+        dataCourses,
         setLoadCamera, cameraLoad, handleChoosePhoto, photo,
-        takePicture, image,
+        takePicture, image,pickerRef,selectedLanguage, setSelectedLanguage,
         dataLocal, onPress, getTokent, getData, onPressSetting, posts, distPatchPost, setConten, conten, loadCamera
     }
 }

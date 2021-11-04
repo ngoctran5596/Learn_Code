@@ -12,6 +12,10 @@ export const typesPost = {
     LIKE_POST : 'LIKE_POST',
     LIKE_POST_SUCCESS : 'LIKE_POST_SUCCESS',
     LIKE_POST_FAILURE : 'LIKE_POST_FAILURE',
+    DELETE_COMMENT_POST : 'DELETE_COMMENT_POST',
+    DELETE_COMMENT_POST_SUCCESS : 'DELETE_COMMENT_POST_SUCCESS',
+    DELETE_COMMENT_POST_FAILURE : 'DELETE_COMMENT_POST_FAILURE',
+   
 }
 
 const action = (type:string,payload:any)=>({type,payload});
@@ -29,5 +33,8 @@ export const postActions ={
     likePost : (payload:any)=>action(typesPost.LIKE_POST,payload),
     likePostSuccess: (payload:any)=>action(typesPost.LIKE_POST_SUCCESS,payload),
     likePostFailure: (payload:any)=> action(typesPost.LIKE_POST_FAILURE,payload),
+    deleteCommentPost : (payload:any)=>action(typesPost.DELETE_COMMENT_POST,payload),
+    deleteCommentPostSuccess: (payload:any)=>action(typesPost.DELETE_COMMENT_POST_SUCCESS,payload),
+    deleteCommentPostFailure: (payload:any)=> action(typesPost.DELETE_COMMENT_POST_FAILURE,payload),
 }
     

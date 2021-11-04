@@ -16,12 +16,21 @@ import {
   ProfileScreen,
   Questions,
   Setting,
-  Splash,
+  SplashApp,
+  classHome,
+  WebviewView,
+  DocumentView,
+  VideoCall_CodeLearn,
+  PostNewsEdit,
+  NoteHand
 } from '@screens';
 import * as React from 'react';
 import { Image, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+
 
 const HomeStack = createStackNavigator();
+// 
 
 export const HomeCourse = () => {
   return (
@@ -47,6 +56,7 @@ export const HomeCourse = () => {
 const BottomStack = createBottomTabNavigator();
 
 export const MyHome = () => {
+  const user = useSelector((state: any) => state?.auth?.user?.user);
   return (
     <BottomStack.Navigator
       initialRouteName="Home"
@@ -71,8 +81,8 @@ export const MyHome = () => {
         options={BottomNavigationOptionHome('Chat', CHAT)}
         component={ChatsScreen}
       />
-       <BottomStack.Screen
-        name="Class"
+      {user?.isTutor ? (<BottomStack.Screen
+        name="addClass"
         options={{
           tabBarIcon: ({ focused }: any) => (
             <Image
@@ -81,7 +91,7 @@ export const MyHome = () => {
               style={{
                 width: 25,
                 height: 25,
-                tintColor: focused ? '#ffffff' : '#ffffff',
+                tintColor: '#ffffff',
               }}
             />
 
@@ -89,22 +99,23 @@ export const MyHome = () => {
           tabBarButton: (props) => (
             <BottomNavigationHome {...props} />
           )
-
-
         }}
-        component={Note}
-      />
+        component={classHome}
+      />) : null}
+
+
+
       <BottomStack.Screen
         name="Note"
         options={BottomNavigationOptionHome('Note', NOTES)}
         component={Note}
       />
-     
+
 
       <BottomStack.Screen
         name="Profile"
         options={BottomNavigationOptionHome('Profile', PROFILE)}
-        component={Note}
+        component={ProfileScreen}
       />
     </BottomStack.Navigator>
   );
@@ -116,8 +127,8 @@ export const MyApp = () => {
       <StackApp.Navigator initialRouteName="Splash">
         <StackApp.Screen
           name="Splash"
-          options={{ headerShown: false }}
-          component={Splash}
+          options={{headerShown: false}}
+          component={SplashApp}
         />
         <StackApp.Screen
           name="Login"
@@ -159,6 +170,31 @@ export const MyApp = () => {
           name="studyrouteDetail"
           options={{ headerShown: false }}
           component={studyrouteDetail}
+        />
+        <StackApp.Screen
+          name="webViewApp"
+          options={{ headerShown: false }}
+          component={WebviewView}
+        />
+        <StackApp.Screen
+          name="documentApp"
+          options={{ headerShown: false }}
+          component={DocumentView}
+        />
+         <StackApp.Screen
+          name="editPost"
+          options={{ headerShown: false }}
+          component={PostNewsEdit}
+        />
+        <StackApp.Screen
+          name="videoCall"
+          options={{ headerShown: false }}
+          component={VideoCall_CodeLearn}
+        />
+        <StackApp.Screen
+          name="NoteHand"
+          options={{ headerShown: false }}
+          component={NoteHand}
         />
       </StackApp.Navigator>
     </NavigationContainer>

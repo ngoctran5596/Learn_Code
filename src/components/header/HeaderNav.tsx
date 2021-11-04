@@ -15,7 +15,7 @@ export const HeaderNav = (props: any) => {
                     <Text style={styles.text}>{title}</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity>
-                            {imgNotification ? <Image style={styles.image} source={imgNotification} /> : <Text></Text>}
+                            {imgNotification ? <Image style={styles.image} source={imgNotification} /> : null}
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => onPressProfile()}>
                             {img ? <Image style={styles.imageAvatar} source={{ uri: img }} /> : (<Image style={styles.image} source={imgSetting} />)}
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         width: wp(6),
         height: wp(6),
         margin: 10,
-        color:Colors.PURPLE
+        // color:Colors.PURPLE
     },
     imageAvatar: {
         width: wp(7),
@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         margin: 10,
         alignItems: 'center',
+        justifyContent:'center',
         color:Colors.PURPLE
     }
 })

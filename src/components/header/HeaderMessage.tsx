@@ -1,10 +1,12 @@
 import { Colors, MENU, FACEBOOK, NOTIFICATION, USER,BACK, CALL, VIDEOCALL } from '@assets'
+import { useNavigation } from '@react-navigation/core'
 import React from 'react'
 import { ScrollView, Image, StyleSheet, Text, View, Platform, TouchableOpacity } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 
 export const HeaderMessage = (props: any) => {
     const { nameUser, imageUser, setMyScreen, onGoBack } = props;
+    const {navigate} = useNavigation();
     return (
         <View style={styles.container}>
             <View style={{ paddingBottom: 20 }}>
@@ -20,7 +22,7 @@ export const HeaderMessage = (props: any) => {
                         <TouchableOpacity>
                             <Image style={styles.image} source={CALL} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {}}>
+                        <TouchableOpacity onPress={() =>navigate('videoCall')}>
                            <Image style={styles.image} source={VIDEOCALL} />
                         </TouchableOpacity>
                     </View>

@@ -3,7 +3,7 @@ import React from 'react'
 import { ScrollView, Image, StyleSheet, Text, View, Platform, TouchableOpacity } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 
-export const HeaderNavCP = (props: any) => {
+export const HeaderNavCopy = (props: any) => {
     const { title, img, imgMenu, imgNotification, onPressProfile, setMyScreen, imgSetting, onGoBack } = props;
     return (
         <View style={styles.container}>
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         height: hp(10),
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: Colors.WHITE,
+        backgroundColor:'white',
         borderBottomEndRadius: wp(8),
         borderBottomStartRadius: wp(8),
         elevation: 10,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         width: wp(6),
         height: wp(6),
         margin: 10,
-        color: Colors.PURPLE
+        // color: '#f7a535'
     },
     imageAvatar: {
         width: wp(7),

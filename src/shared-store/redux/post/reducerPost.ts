@@ -2,12 +2,13 @@ import {typesPost} from './actionPost';
 const initialState = {
   post: [],
   message: [],
-  like: null
+  commentDelete: [],
+  like: [],
 };
 
 export const postReducer = (state = initialState, actions: any) => {
   let {payload} = actions;
-  console.log('payloadpayloadpayload',payload);
+  console.log('payloadPost',payload);
   switch (actions.type) {
     case typesPost.GET_ALL_POST:
       return {
@@ -22,26 +23,40 @@ export const postReducer = (state = initialState, actions: any) => {
     case typesPost.GET_ALL_POST_FAILURE:
       return {
         ...state,
-
       };
-      case typesPost.COMMENT_POST:
+    case typesPost.COMMENT_POST:
       return {
         ...state,
       };
 
     case typesPost.COMMENT_POST_SUCCESS:
       return {
-        ...state
+        ...state,
       };
     case typesPost.COMMENT_POST_FAILURE:
       return {
         ...state,
       };
-      case typesPost.LIKE_POST_SUCCESS:
-        return {
-          ...state,
-          like:payload
-        };
+    case typesPost.LIKE_POST_SUCCESS:
+      return {
+        ...state,
+        like: payload,
+      };
+
+    case typesPost.DELETE_COMMENT_POST:
+      return {
+        ...state,
+      };
+
+    case typesPost.DELETE_COMMENT_POST_SUCCESS:
+      return {
+        ...state,
+        commentDelete: payload,
+      };
+    case typesPost.DELETE_COMMENT_POST_FAILURE:
+      return {
+        ...state,
+      };
     default:
       return state;
   }

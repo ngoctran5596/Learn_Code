@@ -1,5 +1,5 @@
 import { BACKGROUND, Colors, LOGOT, LOGOUT, USER } from '@assets';
-import { ButtonCustom, ButtonLoginLogup } from '@components';
+import { ButtonCustom, ButtonLoginLogup, ModalCustom } from '@components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, { useState } from 'react';
@@ -7,6 +7,8 @@ import {
   Alert,
   Image,
   ImageBackground,
+  Modal,
+  Pressable,
   Text,
   TouchableOpacity,
   View,
@@ -23,7 +25,7 @@ export const Login = (props: any) => {
   const {
     email,
     onPress,
-    name,
+    name, title,
     screen,
     setScreen,
     password,
@@ -39,6 +41,7 @@ export const Login = (props: any) => {
     isTutor,
     isloading,
     setIsTutor,
+    alerModal, setAlerModal,
     butomsheet,
     bottomSheetRef,
     fall,
@@ -47,6 +50,8 @@ export const Login = (props: any) => {
     errorName,
     errorPass,
   } = props;
+
+
 
   const renderContent = () => (
     <View
@@ -76,14 +81,6 @@ export const Login = (props: any) => {
       <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.image}>
         <Text style={styles.text}>Welcome</Text>
 
-        {/* <View style={{
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-
-          <Image source={LOGOT} style={styles.logo} />
-        </View> */}
-
         <View style={styles.row}>
           <TouchableOpacity
             style={{
@@ -92,7 +89,7 @@ export const Login = (props: any) => {
               borderTopStartRadius: 20,
             }}
             onPress={() => selectScreen('login')}>
-            <Text style={{ ...styles.text, fontSize: 20, color:color.register }}>
+            <Text style={{ ...styles.text, fontSize: 20, color: color.register }}>
               Login
             </Text>
           </TouchableOpacity>
@@ -169,7 +166,34 @@ export const Login = (props: any) => {
             onPress={isloading === 'login' ? submitLogin : submitRegister}
           />
         </View>
+
+
       </ImageBackground>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={alerModal}
+        onRequestClose={() => { }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text>{title}</Text>
+            <View style={{ flexDirection: 'row' }}>
+
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setAlerModal(!alerModal)}>
+                <Text style={styles.textStyle}>Cancel</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setAlerModal(!alerModal)}>
+                <Text style={styles.textStyle}>Xác nhận</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
 
       <BottomSheet
         ref={bottomSheetRef}
@@ -179,6 +203,7 @@ export const Login = (props: any) => {
         renderContent={renderContent}
         initialSnap={0}
       />
+
     </View>
   );
 };

@@ -9,3 +9,5 @@ export * from './form';
 export * from './Camera';
 export * from './chat';
 export * from './card';
+export * from './modal';
+export * from './Style';

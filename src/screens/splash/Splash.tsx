@@ -4,7 +4,7 @@ import { ImageBackground } from 'react-native'
 import { StyleSheet, Text, View } from 'react-native'
 import { useSelector } from 'react-redux'
 
-export const Splash = (props: any) => {
+export const SplashApp = (props: any) => {
     const isLoading  = useSelector((state:any)=> state?.auth?.isLoading)
     React.useEffect(() => {
         setTimeout(() => {

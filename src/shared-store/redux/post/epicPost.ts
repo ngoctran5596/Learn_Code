@@ -9,7 +9,7 @@ export const createPostEpic = ($action: any) => {
     ofType(typesPost.CREATE_POST),
     mergeMap((act: any) => {
       const post = {
-        userId:act.payload.userId,
+        userId: act.payload.userId,
         description: act.payload.discriptions,
       };
       const headers = {
@@ -65,14 +65,37 @@ export const commentPostEpic = ($action: any) => {
   );
 };
 
-
-export const likePostEpic = ($action: any) => {
+export const deleteCommentPostEpic = ($action: any) => {
   return $action.pipe(
-    ofType(typesPost.LIKE_POST),
+    ofType(typesPost.DELETE_COMMENT_POST),
     mergeMap((act: any) => {
       console.log('actactactactactactactactact', act);
       return $axios.config
-        .post(`newsfeed/${act.payload.idPost}`, act.payload.data)
+        .delete(`newsfeed/comment/${act.payload.idComment}`)
+        .then((rs: any) => {
+          console.log('rsrsrsrsrsrsrsrs', rs.data);
+          const {data} = rs;
+          return postActions.deleteCommentPostSuccess(data);
+        })
+        .catch((err: any) => {
+          return postActions.deleteCommentPostFailure(err);
+        });
+    }),
+  );
+};
+
+
+export const LikePost = ($action: any) => {
+  return $action.pipe(
+    ofType(typesPost.LIKE_POST),
+    mergeMap((act: any) => {
+      const id = act.payload.idPost
+      const headers = {
+        Authorization: act.payload.token,
+        'My-Custom-Header': 'foobar',
+      };
+      return $axios.config
+        .post(`newsfeed/like/${id}`, {}, {headers})
         .then((rs: any) => {
           const {data} = rs;
           return postActions.likePostSuccess(data);

@@ -1,8 +1,8 @@
-import {BACKGROUND, USER} from '@assets';
-import {ButtonCustom, ButtonLoginLogup} from '@components';
+import { BACKGROUND, USER } from '@assets';
+import { ButtonCustom, ButtonLoginLogup } from '@components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Alert,
   ImageBackground,
@@ -10,14 +10,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {TextInput} from 'react-native-gesture-handler';
-import {$axios} from '@api';
-import {styles} from './style';
+import { TextInput } from 'react-native-gesture-handler';
+import { $axios } from '@api';
+import { styles } from './style';
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
-import {Login} from '@screens';
-import {authlogic} from './auth.logic';
-import {Questions} from './Questions';
+import { Login } from '@screens';
+import { authlogic } from './auth.logic';
+import { Questions } from './Questions';
 
 export const LoginView = (props: any) => {
   const {
@@ -30,16 +30,17 @@ export const LoginView = (props: any) => {
     submitLogin,
     color,
     setEmail,
-    setPassword,setName,
+    setPassword, setName,
     submitRegister,
     selectIsToutor,
-    isTutor,name,
+    isTutor, name,
     isloading,
-    setIsTutor,check,
-    butomsheet,
-    bottomSheetRef,
-    fall,
-    point,setPoint,TextTutor,setTextTutor,errorEmail,errorName,errorPass
+    setIsTutor, check,
+    butomsheet,ScreenMain,
+    bottomSheetRef,title,
+    alerModal,
+    fall, setAlerModal,
+    point, setPoint, TextTutor, setTextTutor, errorEmail, errorName, errorPass
   } = authlogic(props);
 
   const renderFrame = () => {
@@ -47,6 +48,8 @@ export const LoginView = (props: any) => {
       case 0:
         return (
           <Login
+            setAlerModal={setAlerModal}
+            alerModal={alerModal}
             email={email}
             screen={screen}
             setScreen={setScreen}
@@ -60,6 +63,7 @@ export const LoginView = (props: any) => {
             submitRegister={submitRegister}
             selectIsToutor={selectIsToutor}
             isTutor={isTutor}
+            title={title}
             isloading={isloading}
             setIsTutor={setIsTutor}
             butomsheet={butomsheet}
@@ -77,7 +81,7 @@ export const LoginView = (props: any) => {
           />
         );
       case 1:
-        return <Questions point={point} setPoint={setPoint} selectIsToutor={selectIsToutor} TextTutor={TextTutor} setTextTutor={setTextTutor} />;
+        return <Questions  setScreen={ScreenMain} point={point} setPoint={setPoint} selectIsToutor={selectIsToutor} TextTutor={TextTutor} setTextTutor={setTextTutor} />;
       default:
         return;
     }

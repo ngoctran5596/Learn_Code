@@ -2,6 +2,8 @@ import {typesCoures} from './actionCourses';
 const initialState = {
   allCourse: [],
   coursesDetail: [],
+  coursesById: [],
+  message: '',
 };
 
 export const coursesReducer = (state = initialState, actions: any) => {
@@ -34,6 +36,21 @@ export const coursesReducer = (state = initialState, actions: any) => {
     case typesCoures.GET_COURSES_DETAIL_FAILURE:
       return {
         ...state,
+      };
+    case typesCoures.CREATE_COURSES_SUCCESS:
+      return {
+        ...state,
+        message: payload.message,
+      };
+    case typesCoures.ADD_STUDENT_COURSE_SUCCESS:
+      return {
+        ...state,
+        message: payload.message,
+      };
+    case typesCoures.COURSE_BY_ID_SUCCESS:
+      return {
+        ...state,
+        coursesById: payload.payload,
       };
     default:
       return state;

@@ -1,32 +1,31 @@
-import { BACK, CHATLOVE, Colors, SETTING } from '@assets';
-import { HeaderNav } from '@components';
+import { BACK, CAMERA, CHATLOVE, Colors, SETTING } from '@assets';
+import { HeaderNav, ModalCustom, ModalProfile } from '@components';
 import React, { useEffect, useState } from 'react';
 import {
+  Button,
   Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View
 } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { ImageCustom } from '@components';
 import { ProfileLogic } from './Profile.Logic';
 
 
 export const ProfileScreen = (props: any) => {
-  const {dataLocal, onPress, Logout, getData, onPressSetting}: any =
+  const { dataLocal,onChange, distPatchPost, isLoadModal, photo, setIsLoadModal, onPress, Logout, getData, onBack, handleChoosePhoto, onPressSetting, user }: any =
     ProfileLogic(props);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
   const [userData, setUserData] = useState(null);
-  useEffect(() => {
-    getData();
-  }, []);
-  const user =props.route.params.user;
- 
-  const handleDelete = () => {};
+
+
+  const handleDelete = () => { };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <ScrollView
         style={styles.container}
-        contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}}
+        contentContainerStyle={{ justifyContent: 'center', alignItems: 'center' }}
         showsVerticalScrollIndicator={false}>
         <HeaderNav
           setMyScreen={onPress}
@@ -35,20 +34,27 @@ export const ProfileScreen = (props: any) => {
           imgMenu={BACK}
           onPressProfile={onPressSetting}
         />
-        <Image style={styles.userImg} source={{uri: user?.image}} />
+        <View>
+          <ImageCustom img={user?.image} />
+          {/* <Image style={styles.userImg} source={{ uri: user?.image }} /> */}
+          <TouchableOpacity onPress={handleChoosePhoto} style={{ position: 'absolute', bottom: 0, right: 0 }}>
+            <Image style={styles.camerastyle} source={CAMERA} />
+          </TouchableOpacity>
+        </View>
+
         <Text style={styles.userName}>{user?.name} </Text>
 
-        <Text style={styles.aboutUser}>{user?.isTurtor ===0? 'Người học': 'Người dạy'}</Text>
+        <Text style={styles.aboutUser}>{user?.isTutor ? 'Người dạy' : 'Người học'}</Text>
         <View style={styles.userBtnWrapper}>
-          <TouchableOpacity style={styles.userBtn} onPress={() => {}}>
+          <TouchableOpacity style={styles.userBtn} onPress={() => { }}>
             <Image
-              style={{width: wp(5), height: wp(5), marginHorizontal: wp(1)}}
+              style={{ width: wp(5), height: wp(5), marginHorizontal: wp(1) }}
               source={CHATLOVE}
             />
-            <Text style={styles.userBtnTxt}>Message</Text>
+            <Text style={styles.userBtnTxt}>Toi yeu tat ca cac ban</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.userBtnSting} onPress={() => {}}>
+          <TouchableOpacity style={styles.userBtnSting} onPress={() => { }}>
             <Text style={styles.userBtnTxt}>...</Text>
           </TouchableOpacity>
         </View>
@@ -59,15 +65,28 @@ export const ProfileScreen = (props: any) => {
             <Text style={styles.userInfoSubTitle}>Posts</Text>
           </View>
           <View style={styles.userInfoItem}>
-            <Text style={styles.userInfoTitle}>10,000</Text>
-            <Text style={styles.userInfoSubTitle}>Followers</Text>
+            <Text style={styles.userInfoTitle}>1</Text>
+            <Text style={styles.userInfoSubTitle}>Lớp đã tham gia</Text>
           </View>
           <View style={styles.userInfoItem}>
-            <Text style={styles.userInfoTitle}>100</Text>
-            <Text style={styles.userInfoSubTitle}>Following</Text>
+            <Text style={styles.userInfoTitle}>0</Text>
+            <Text style={styles.userInfoSubTitle}>Lớp đã dạy</Text>
           </View>
         </View>
+
       </ScrollView>
+      <ModalProfile modalVisible={isLoadModal} setShowModal={onChange}>
+        {
+          photo?.map((item: any) => {
+            return <View style={{ alignItems: 'center', marginVertical: 10 }}><Image source={{ uri: item?.uri }} style={{ width: 300, height: 200, borderRadius: 12 }} /></View>
+          })
+        }
+        <Text>Bạn muốn chọn ảnh này làm đại diện chứ ?</Text>
+        <TouchableOpacity onPress={distPatchPost} style={styles.skip}>
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>Confirm</Text>
+        </TouchableOpacity>
+      </ModalProfile>
+
     </SafeAreaView>
   );
 };
@@ -82,11 +101,23 @@ const styles = StyleSheet.create({
     width: 150,
     borderRadius: 75,
   },
+  camerastyle: {
+    height: 40,
+    width: 40,
+    borderRadius: 75,
+  },
   userName: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 10,
     marginBottom: 10,
+  },
+  skip: {
+    borderRadius: 20,
+    marginBottom: 5,
+    padding: 15,
+    elevation: 2,
+    backgroundColor: Colors.PURPLE,
   },
   aboutUser: {
     fontSize: 12,
@@ -103,7 +134,7 @@ const styles = StyleSheet.create({
   },
   userBtn: {
     flexDirection: 'row',
-    width: wp(40),
+    width: wp(50),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.BLUE,

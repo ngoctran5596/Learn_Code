@@ -9,6 +9,9 @@ export const typess = {
     REGISTER : 'REGISTER',
     REGISTER_SUCCESS : 'REGISTER_SUCCESS',
     REGISTER_FAILURE : 'REGISTER_FAILURE',
+    GET_USER_INFOR: 'GET_USER_INFOR',
+    GET_USER_INFOR_SUCCESS:'GET_USER_INFOR_SUCCESS',
+    GET_USER_INFOR_FAILURE:'GET_USER_INFOR_FAILURE'
 }
 
 const action = (type:string,payload:any)=>({type,payload});
@@ -17,6 +20,9 @@ export const userActions ={
     getUser : (payload:any)=>action(typess.GET_USER,payload),
     getUserSuccess: (payload:any)=>action(typess.GET_USER_SUCCESS,payload),
     getUserFailure: (payload:any)=> action(typess.GET_USER_FAILURE,payload),
+    getUserInfor : (payload:any)=>action(typess.GET_USER_INFOR,payload),
+    getUserInforSuccess: (payload:any)=>action(typess.GET_USER_INFOR_SUCCESS,payload),
+    getUserInforFailure: (payload:any)=> action(typess.GET_USER_INFOR_FAILURE,payload),
     login: (payload:any)=>action(typess.LOGIN,payload),
     loginSuccess: (payload:any)=>action(typess.LOGIN_SUCCESS,payload),
     loginFailure: (payload:any)=> action(typess.LOGIN_FAILURE,payload),

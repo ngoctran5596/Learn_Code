@@ -1,6 +1,7 @@
 import {typess} from './action';
 const initialState = {
   user: [],
+  userById: [],
   message:[],
   isLoading:false
 };
@@ -16,7 +17,7 @@ export const UserReducer = (state = initialState, actions: any) => {
     case typess.GET_USER_SUCCESS:
       return {
         ...state,
-        user: payload,
+        userById: payload,
       };
     case typess.GET_USER_FAILURE:
       return {
@@ -56,7 +57,6 @@ export const UserReducer = (state = initialState, actions: any) => {
     case typess.LOGOUT:
         return {
           ...state,
-          user:payload,
           isLoading:false
         };
     default:

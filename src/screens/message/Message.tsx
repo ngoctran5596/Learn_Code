@@ -7,15 +7,16 @@ import { heightPercentageToDP } from 'react-native-responsive-screen';
 
 export const MessageScreen = (props: any) => {
 
-  const scrollRef = React.createRef<ScrollView>();
+  const scrollRef = React.useRef<ScrollView>();
   const { routerParams, onPress, activeRoomMgs, message, onchange, txtMsg } =
     MessageLogic(props);
 
-  console.log("messagemessagemessagemessagemessage", message);
+  // console.log("messagemessagemessagemessagemessage", message);
   return (
     <View style={{ flex: 1 }}>
       <View style={{ height: heightPercentageToDP(10) }}>
         <HeaderMessage
+          setMyScreen={() => props.navigation.goBack()}
           imageUser={routerParams.image}
           nameUser={routerParams.name}
         />
@@ -24,13 +25,13 @@ export const MessageScreen = (props: any) => {
         {message.length > 0
           ? (
             <ScrollView
-            ref={scrollRef}
+              ref={scrollRef}
               onContentSizeChange={() => {
-                scrollRef.current?.scrollToEnd({animated: true})
+                scrollRef.current?.scrollToEnd({ animated: true })
               }}
               showsVerticalScrollIndicator={false}
               onLayout={() => {
-                scrollRef.current?.scrollToEnd({animated: true})
+                scrollRef.current?.scrollToEnd({ animated: true })
               }}
             >
               {message.map(({ txtMsg, sender }: any, index: any) => (
