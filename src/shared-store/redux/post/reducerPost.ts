@@ -8,7 +8,6 @@ const initialState = {
 
 export const postReducer = (state = initialState, actions: any) => {
   let {payload} = actions;
-  console.log('payloadPost',payload);
   switch (actions.type) {
     case typesPost.GET_ALL_POST:
       return {

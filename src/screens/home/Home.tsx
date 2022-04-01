@@ -98,7 +98,7 @@ export const Home = (props: any) => {
         ) : null}
       </View>
 
-      {dataCourses ? (
+      {dataCourses.length > 0 ? (
         <VirtualizedView
           style={{ marginTop: hp(1) }}
           onRefresh={onRefresh}

@@ -18,7 +18,7 @@ export const DocumentView = (props: any) => {
                 data={data}
                 renderItem={({ item }) => {
                     return (
-                       <DocumentComponent image={item.userId.image} description={item.description}/>
+                       <DocumentComponent image={item?.userId?.image} description={item?.description}/>
                     )
 
                 }}

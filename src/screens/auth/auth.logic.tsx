@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 export const authlogic = (props: any) => {
   const messageChekEmail = useSelector((state: any) => state.auth.message);
   const userStore = useSelector((state: any) => state.auth.isLoading);
+
   const userApp = useSelector((state: any) => state.auth.user.user);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,23 +50,53 @@ export const authlogic = (props: any) => {
     setScreen(0);
     setScreen(1);
   };
+
   const submitLogin = () => {
+    const check = submitLogin1();
     const user = {
       email,
       password,
     };
-    const promise = new Promise(function (resolve, reject) {
-      dispatch(userActions.login(user));
-      resolve(
-        true
-      )
-    });
-    promise.then(function (data) {
-      console.log('ĐAAAAAATA', data);
-      dispatch(coursesActions.getCourseByUserId(userApp.id))
-      dispatch(coursesActions.getAllCourses(''));
-      dispatch(postActions.getAllPost(''));
-    })
+    if (check) {
+      setErrorEmail('')
+      setErrorPass('')
+      new Promise(function (resolve, reject) {
+        resolve(dispatch(userActions.login(user)));
+      }).then((data: any) => {
+        const userStore = useSelector((state: any) => state.auth.isLoading);
+        if (userStore) {
+          dispatch(coursesActions.getCourseByUserId(userApp.id))
+          dispatch(coursesActions.getAllCourses(''));
+          dispatch(postActions.getAllPost(''));
+          // dispatch(coursesActions.getAllPost(''));
+        } else {
+          Alert.alert('Đăng nhập thất bại')
+        }
+      });
+
+
+    }
+  }
+
+  const submitLogin1 = () => {
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+
+    console.log(validRegex.test(email))
+
+    if (!validRegex.test(email)) {
+      setErrorEmail('Email không đúng định dạng')
+    }
+
+    if (password.length <= 8) {
+      setErrorEmail('')
+      setErrorPass('Pass không để trống và  8 ký tự')
+      return false;
+    }
+
+    return true;
+
+
 
   };
 
@@ -85,10 +116,8 @@ export const authlogic = (props: any) => {
     }
   };
 
-
-
   const submitRegister = () => {
-
+    const check = submitRegister1();
     if (isTutor === '0') {
 
     } else {
@@ -98,23 +127,16 @@ export const authlogic = (props: any) => {
       }
 
     }
-    console.log('isTutor', isTutor);
+
     const user = {
       name,
       email,
       password,
       isTutor: isTutor === '0' ? false : true,
     };
-    if (name == null || name == '' || name.length <= 4) {
-      return setErrorName('Name không để trống,phải 5 ký tự!');
-    } else if (email == null || email == '') {
-      setErrorName('');
-      return setErrorEmail('Email phải đúng định dạng!');
-    } else if (password == null || password == '' || password.length <= 7) {
-      setErrorEmail('');
-      return setErrorPass('Pass không để trống và từ 8 ký tự trở lên!');
-    } else {
-      setErrorPass('');
+
+    if (check) {
+      setErrorPass('')
       new Promise(resolve => {
         resolve(dispatch(userActions.register(user)));
       }).then((res: any) => {
@@ -124,16 +146,51 @@ export const authlogic = (props: any) => {
         setAlerModal(true);
 
       });
+    } else {
+      return false;
+
     }
+
+
+  }
+
+
+  const submitRegister1 = () => {
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+
+    if (name.length <= 4) {
+      setErrorName('Name không để trống,phải 5 ký tự!');
+
+    }
+    if (!validRegex.test(email)) {
+      setErrorEmail('Email không đúng định dạng')
+    }
+
+    if (password.length <= 7) {
+      setErrorPass('Pass không để trống và từ 8 ký tự trở lên!');
+      return false;
+    }
+
+
+
+    return (true);
+
   };
 
   const selectScreen = (screen: any) => {
     if (screen === 'login') {
       setIsloading(screen);
+      setErrorPass('');
+      setErrorEmail('');
+      setErrorName('');
       return setColor({ login: 'white', register: Colors.PURPLE });
     }
     if (screen === 'register') {
       setIsloading(screen);
+      setErrorPass('');
+      setErrorEmail('');
+      setErrorName('');
       return setColor({ login: Colors.PURPLE, register: 'white' });
     }
   };
@@ -161,7 +218,7 @@ export const authlogic = (props: any) => {
       dispatch(postActions.getAllPost(''));
       return props.navigation.replace('MyHome');
     } else {
-      return;
+
     }
   };
 
@@ -194,7 +251,10 @@ export const authlogic = (props: any) => {
     errorEmail,
     errorName,
     errorPass,
-    alerModal, setAlerModal,
-    ScreenMain, title
+    alerModal,
+    setAlerModal,
+    ScreenMain,
+    title,
+    userStore
   };
 };

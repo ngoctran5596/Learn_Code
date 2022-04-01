@@ -1,60 +1,62 @@
-import {typess} from './action';
+import {typeAuth} from './action';
 const initialState = {
   user: [],
   userById: [],
   message:[],
-  isLoading:false
+  isLoading:false,
+  error:'',
 };
 
 export const UserReducer = (state = initialState, actions: any) => {
   let {payload} = actions;
+  console.log('actions',actions)
   switch (actions.type) {
-    case typess.GET_USER:
+    case typeAuth.GET_USER:
       return {
         ...state,
       };
 
-    case typess.GET_USER_SUCCESS:
+    case typeAuth.GET_USER_SUCCESS:
       return {
         ...state,
         userById: payload,
       };
-    case typess.GET_USER_FAILURE:
+    case typeAuth.GET_USER_FAILURE:
       return {
         ...state,
         
       };
-    case typess.LOGIN:
+    case typeAuth.LOGIN:
       return {
         ...state,
       };
 
-    case typess.LOGIN_SUCCESS:
+    case typeAuth.LOGIN_SUCCESS:
       return {
         ...state,
         user: payload,  
-        isLoading:true,
+        isLoading: true,
       };
-    case typess.LOGIN_FAILURE:
+    case typeAuth.LOGIN_FAILURE:
       return {
         ...state,
         isLoading:false,
       };
-    case typess.REGISTER:
+    case typeAuth.REGISTER:
       return {
         ...state,
       };
 
-    case typess.REGISTER_SUCCESS:
+    case typeAuth.REGISTER_SUCCESS:
       return {
         ...state,
         message: payload,
       };
-    case typess.REGISTER_FAILURE:
+    case typeAuth.REGISTER_FAILURE:
       return {
         ...state,
       };
-    case typess.LOGOUT:
+    case typeAuth.LOGOUT:
         return {
           ...state,
           isLoading:false

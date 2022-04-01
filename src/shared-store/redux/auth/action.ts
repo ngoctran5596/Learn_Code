@@ -1,4 +1,4 @@
-export const typess = {
+export const typeAuth = {
     LOGOUT:'LOGOUT',
     GET_USER : 'GET_USER',
     GET_USER_SUCCESS : 'GET_USER_SUCCESS',
@@ -17,17 +17,17 @@ export const typess = {
 const action = (type:string,payload:any)=>({type,payload});
 
 export const userActions ={
-    getUser : (payload:any)=>action(typess.GET_USER,payload),
-    getUserSuccess: (payload:any)=>action(typess.GET_USER_SUCCESS,payload),
-    getUserFailure: (payload:any)=> action(typess.GET_USER_FAILURE,payload),
-    getUserInfor : (payload:any)=>action(typess.GET_USER_INFOR,payload),
-    getUserInforSuccess: (payload:any)=>action(typess.GET_USER_INFOR_SUCCESS,payload),
-    getUserInforFailure: (payload:any)=> action(typess.GET_USER_INFOR_FAILURE,payload),
-    login: (payload:any)=>action(typess.LOGIN,payload),
-    loginSuccess: (payload:any)=>action(typess.LOGIN_SUCCESS,payload),
-    loginFailure: (payload:any)=> action(typess.LOGIN_FAILURE,payload),
-    register: (payload:any)=> action(typess.REGISTER,payload),
-    registerSuccess: (payload:any)=>action(typess.REGISTER_SUCCESS,payload),
-    registerFailure: (payload:any)=> action(typess.REGISTER_FAILURE,payload),
-    LOGOUT: (payload:any)=> action(typess.LOGOUT,payload),
+    getUser : (payload:any)=>action(typeAuth.GET_USER,payload),
+    getUserSuccess: (payload:any)=>action(typeAuth.GET_USER_SUCCESS,payload),
+    getUserFailure: (payload:any)=> action(typeAuth.GET_USER_FAILURE,payload),
+    getUserInfor : (payload:any)=>action(typeAuth.GET_USER_INFOR,payload),
+    getUserInforSuccess: (payload:any)=>action(typeAuth.GET_USER_INFOR_SUCCESS,payload),
+    getUserInforFailure: (payload:any)=> action(typeAuth.GET_USER_INFOR_FAILURE,payload),
+    login: (payload:any)=>action(typeAuth.LOGIN,payload),
+    loginSuccess: (payload:any)=>action(typeAuth.LOGIN_SUCCESS,payload),
+    loginFailure: (payload:any)=> action(typeAuth.LOGIN_FAILURE,payload),
+    register: (payload:any)=> action(typeAuth.REGISTER,payload),
+    registerSuccess: (payload:any)=>action(typeAuth.REGISTER_SUCCESS,payload),
+    registerFailure: (payload:any)=> action(typeAuth.REGISTER_FAILURE,payload),
+    LOGOUT: (payload:any)=> action(typeAuth.LOGOUT,payload),
 }

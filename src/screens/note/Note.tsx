@@ -19,12 +19,12 @@ export const Note = (props: any) => {
     const [isFetching, setIsFetching] = React.useState(false);
     const onRefresh = () => {
         setIsFetching(true);
-        dispatch(noteActions.getAllNote({ userId: user.id }));
+        dispatch(noteActions.getAllNote({ userId: user?.id }));
         setIsFetching(false);
     }
     // const [data, setData] = React.useState([])
     React.useEffect(() => {
-        dispatch(noteActions.getAllNote({ userId: user.id }))
+        dispatch(noteActions.getAllNote({ userId: user?.id }))
     }, [])
 
     return (

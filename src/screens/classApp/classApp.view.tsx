@@ -24,7 +24,7 @@ export function classHome(props: any) {
   const [description, setDecription] = React.useState();
 
   const pickerRef = React.useRef();
-  const dataCourses = useSelector((state: any) => state?.courses.allCourse);
+  const dataCourses = useSelector((state: any) => state?.courses?.allCourse);
   const createSuccess = useSelector((state: any) => state?.courses.message);
   const user = useSelector((state: any) => state?.auth?.user.user);
   // description: { type: String },

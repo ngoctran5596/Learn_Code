@@ -1,11 +1,11 @@
-import {userActions, typess} from './action';
+import {userActions, typeAuth} from './action';
 import {ofType} from 'redux-observable';
 import {mergeMap} from 'rxjs/operators';
 import {$axios} from '@api';
 
 export const getUser = ($action: any) => {
   return $action.pipe(
-    ofType(typess.GET_USER),
+    ofType(typeAuth.GET_USER),
     mergeMap((act: any) => {
       console.log('getUsergetUser',act)
       return $axios.config
@@ -27,12 +27,14 @@ export const getUser = ($action: any) => {
 };
 export const loginUser = ($action: any) => {
   return $action.pipe(
-    ofType(typess.LOGIN),
+    ofType(typeAuth.LOGIN),
     mergeMap((act: any) => {
       return $axios.config
         .post('user/login',act.payload)
         .then((rs: any) => {
+          console.log('rs',rs)
           const {data} = rs;
+          userActions.login(data)
           return userActions.loginSuccess(data);
         })
         .catch((err: any) => {
@@ -44,7 +46,7 @@ export const loginUser = ($action: any) => {
 
 export const registerUser = ($action: any) => {
   return $action.pipe(
-    ofType(typess.REGISTER),
+    ofType(typeAuth.REGISTER),
     mergeMap((act: any) => {
       return $axios.config
         .post('user/register',act.payload)

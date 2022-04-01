@@ -19,7 +19,7 @@ export const ProfileLogic = (props: any) => {
     const [conten, setConten] = React.useState('');
     const [image, setImage] = React.useState();
     const [photo, setPhoto] = React.useState(null);
-    const getTokent = useSelector((state: any) => state?.auth.user.user.id);
+    const getTokent = useSelector((state: any) => state?.auth?.user?.user?.id);
     const [selectedLanguage, setSelectedLanguage] = React.useState();
     const pickerRef = React.useRef();
 
